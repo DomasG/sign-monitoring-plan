@@ -93,6 +93,7 @@
   <div class="wrap">
     <a href="#en-idea">The idea</a>
     <a href="#en-findings">What we found</a>
+    <a href="#en-devices">Device costs</a>
     <a href="#en-tasks">Tasks now</a>
     <a href="#en-decisions">Decisions ahead</a>
     <a href="#en-budget">Budget &amp; timeline</a>
@@ -163,6 +164,51 @@
     </ul>
     <p class="note" style="margin-bottom:0">Sources: lichtwart.io; Lichtwart funding press release (Sep 2024); Founders Foundation; Handelsregister HRB 16999 (Amtsgericht Bad Oeynhausen) via North Data; Dealroom; gritt.io; LinkedIn. Checked 9 October 2026.</p>
   </div>
+</section>
+
+<section id="en-devices">
+  <h2>Device costs <span class="pill p-wait">Estimate</span></h2>
+  <p class="muted">Price of the monitoring device itself, without installation. Retail prices found online; volume prices will be lower. Mostly excl. VAT; pound and dollar prices converted approximately.</p>
+
+  <div class="grid">
+    <div class="stat"><b>~€15</b><span>cheapest: Wi-Fi relay with power metering (Shelly), needs store Wi-Fi</span></div>
+    <div class="stat"><b>~€150–165</b><span>full mobile-network kit: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
+    <div class="stat"><b>~€90–140</b><span>mobile-network, battery, no cable cutting: Dragino CS01-CB + clamp + SIM</span></div>
+    <div class="stat"><b>€399</b><span>Lichtwart ECO, plus €8/month and €24 SIM (~€900 over 5 years)</span></div>
+  </div>
+
+  <table style="margin-top:14px">
+    <tr><th>Device</th><th>Maker, country</th><th style="width:16%">Price per unit</th><th>Notes</th></tr>
+    <tr><td><b>Shelly 1PM Gen3</b> / 1PM Mini Gen3</td><td>Shelly, Bulgaria</td><td>~€15 (incl. VAT)</td><td>Wi-Fi metering relay; can replace the sign's timer</td></tr>
+    <tr><td><b>Shelly Pro 1PM</b> (DIN rail)</td><td>Shelly, Bulgaria</td><td>~€76 (incl. VAT)</td><td>Wi-Fi + LAN, 5-year warranty</td></tr>
+    <tr><td><b>Teltonika TRB140 / TRB145 / TRB245</b></td><td>Teltonika, <b>Lithuania</b></td><td>~€105–180</td><td>LTE modem that reads a meter; local supplier</td></tr>
+    <tr><td><b>Eastron SDM120</b> (meter)</td><td>Eastron, China</td><td>~€33–41</td><td>DIN-rail energy meter, used with Teltonika</td></tr>
+    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, China</td><td>~€89</td><td>Meter with built-in LoRaWAN</td></tr>
+    <tr><td><b>Dragino CS01-CB / CS01-NB</b></td><td>Dragino, China</td><td>~€76–125 + clamp</td><td>NB-IoT/LTE-M, battery-powered current sensor</td></tr>
+    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, China</td><td>~€63–96 + clamp</td><td>LoRaWAN version</td></tr>
+    <tr><td><b>Milesight CT101</b></td><td>Milesight, China</td><td>~€100–105</td><td>LoRaWAN clamp; doesn't report below 1.5 A</td></tr>
+    <tr><td><b>Milesight WS558</b></td><td>Milesight, China</td><td>~€122–148</td><td>LoRaWAN lighting controller, 8 outputs</td></tr>
+    <tr><td><b>Milesight UC300</b></td><td>Milesight, China</td><td>~€190–210</td><td>LTE controller on DIN rail</td></tr>
+    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, China</td><td>~€185–219</td><td>Light sensor, backup check only</td></tr>
+    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taiwan</td><td>~€119–179</td><td>LoRaWAN current sensor, battery</td></tr>
+    <tr><td><b>Elsys ELT Lite / ERS2</b></td><td>Elsys, Sweden</td><td>~€72–86</td><td>General-purpose LoRaWAN sensors</td></tr>
+    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Germany</td><td>€399 + €8/mo + €24 SIM</td><td>Complete solution for signs (device + cloud)</td></tr>
+  </table>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="card" style="margin:0"><h3>Extra costs</h3><ul>
+      <li><b>SIM:</b> ~€12 once for 10 years (1NCE), or ~€1.6–3/month via operators</li>
+      <li><b>LoRaWAN gateway:</b> ~€115–245 per site (no national LoRaWAN network in Lithuania)</li>
+      <li><b>Current clamps</b> for Dragino: price to be quoted</li>
+    </ul></div>
+    <div class="card" style="margin:0"><h3>Our own device (rough estimate)</h3><ul>
+      <li><b>Parts, at 1,000 units:</b> ~€25–45 (LTE-M module €8–15, metering chip, relay, power supply, PCB, enclosure, assembly) + ~€13 SIM</li>
+      <li><b>At ~100 units:</b> ~€50–80 each</li>
+      <li><b>One-off:</b> ~€15–40k development + ~€12–40k EU certification</li>
+      <li><b>Pays off</b> only from several thousand units, so only once we expand across the Baltics</li>
+    </ul></div>
+  </div>
+  <p class="note">For the pilot: test Shelly (cheapest), Teltonika + Eastron (reliable, own mobile connection) and Dragino (battery, no cable cutting), with a Lichtwart unit as a benchmark. Ask Teltonika directly for volume prices.</p>
 </section>
 
 <section id="en-tasks">
@@ -256,6 +302,7 @@
   <div class="wrap">
     <a href="#lt-idea">Idėja</a>
     <a href="#lt-findings">Ką išsiaiškinome</a>
+    <a href="#lt-devices">Įrenginių kainos</a>
     <a href="#lt-tasks">Užduotys dabar</a>
     <a href="#lt-decisions">Laukiantys sprendimai</a>
     <a href="#lt-budget">Biudžetas ir terminai</a>
@@ -326,6 +373,51 @@
     </ul>
     <p class="note" style="margin-bottom:0">Šaltiniai: lichtwart.io; Lichtwart pranešimas spaudai apie investicijas (2024 m. rugsėjis); Founders Foundation; Vokietijos įmonių registras HRB 16999 (Bad Oeynhauseno apylinkės teismas), per North Data; Dealroom; gritt.io; LinkedIn. Tikrinta 2026 m. spalio 9 d.</p>
   </div>
+</section>
+
+<section id="lt-devices">
+  <h2>Įrenginių kainos <span class="pill p-wait">Įvertis</span></h2>
+  <p class="muted">Paties stebėsenos įrenginio kaina, be montavimo. Mažmeninės kainos, rastos internete; perkant kiekius kainos bus mažesnės. Dažniausiai be PVM; svarų ir dolerių kainos perskaičiuotos apytiksliai.</p>
+
+  <div class="grid">
+    <div class="stat"><b>~15 €</b><span>pigiausias: „Wi-Fi“ relė su galios matavimu (Shelly), reikia parduotuvės „Wi-Fi“</span></div>
+    <div class="stat"><b>~150–165 €</b><span>pilnas mobiliojo ryšio komplektas: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
+    <div class="stat"><b>~90–140 €</b><span>mobilusis ryšys, baterija, be laidų pjaustymo: Dragino CS01-CB + replės + SIM</span></div>
+    <div class="stat"><b>399 €</b><span>Lichtwart ECO, plius 8 €/mėn. ir 24 € SIM (~900 € per 5 metus)</span></div>
+  </div>
+
+  <table style="margin-top:14px">
+    <tr><th>Įrenginys</th><th>Gamintojas, šalis</th><th style="width:16%">Kaina už vnt.</th><th>Pastabos</th></tr>
+    <tr><td><b>Shelly 1PM Gen3</b> / 1PM Mini Gen3</td><td>Shelly, Bulgarija</td><td>~15 € (su PVM)</td><td>„Wi-Fi“ relė su galios matavimu; gali pakeisti iškabos laikmatį</td></tr>
+    <tr><td><b>Shelly Pro 1PM</b> (DIN bėgis)</td><td>Shelly, Bulgarija</td><td>~76 € (su PVM)</td><td>„Wi-Fi“ + laidinis tinklas (LAN), 5 m. garantija</td></tr>
+    <tr><td><b>Teltonika TRB140 / TRB145 / TRB245</b></td><td>Teltonika, <b>Lietuva</b></td><td>~105–180 €</td><td>LTE modemas, nuskaitantis skaitiklį; vietinis tiekėjas</td></tr>
+    <tr><td><b>Eastron SDM120</b> (skaitiklis)</td><td>Eastron, Kinija</td><td>~33–41 €</td><td>Elektros skaitiklis ant DIN bėgio, naudojamas su Teltonika</td></tr>
+    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, Kinija</td><td>~89 €</td><td>Skaitiklis su įmontuotu LoRaWAN</td></tr>
+    <tr><td><b>Dragino CS01-CB / CS01-NB</b></td><td>Dragino, Kinija</td><td>~76–125 € + replės</td><td>NB-IoT/LTE-M srovės jutiklis su baterija</td></tr>
+    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, Kinija</td><td>~63–96 € + replės</td><td>LoRaWAN versija</td></tr>
+    <tr><td><b>Milesight CT101</b></td><td>Milesight, Kinija</td><td>~100–105 €</td><td>LoRaWAN srovės replės; neveikia esant srovei iki 1,5 A</td></tr>
+    <tr><td><b>Milesight WS558</b></td><td>Milesight, Kinija</td><td>~122–148 €</td><td>LoRaWAN šviesos valdiklis, 8 išėjimai</td></tr>
+    <tr><td><b>Milesight UC300</b></td><td>Milesight, Kinija</td><td>~190–210 €</td><td>LTE valdiklis ant DIN bėgio</td></tr>
+    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, Kinija</td><td>~185–219 €</td><td>Šviesos jutiklis, tik papildomam patikrinimui</td></tr>
+    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taivanas</td><td>~119–179 €</td><td>LoRaWAN srovės jutiklis, baterija</td></tr>
+    <tr><td><b>Elsys ELT Lite / ERS2</b></td><td>Elsys, Švedija</td><td>~72–86 €</td><td>Universalūs LoRaWAN jutikliai</td></tr>
+    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Vokietija</td><td>399 € + 8 €/mėn. + 24 € SIM</td><td>Pilnas sprendimas iškaboms (įrenginys + debesija)</td></tr>
+  </table>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="card" style="margin:0"><h3>Papildomos išlaidos</h3><ul>
+      <li><b>SIM:</b> ~12 € vienkartinai 10 metų (1NCE) arba ~1,6–3 €/mėn. per operatorius</li>
+      <li><b>LoRaWAN tinklų sietuvas</b> (angl. <i>gateway</i>): ~115–245 € kiekvienai vietai (Lietuvoje nėra nacionalinio LoRaWAN tinklo)</li>
+      <li><b>Srovės replės</b> Dragino įrenginiams: kainą reikia pasitikslinti</li>
+    </ul></div>
+    <div class="card" style="margin:0"><h3>Savas įrenginys (apytikslis įvertis)</h3><ul>
+      <li><b>Komponentai, gaminant 1 000 vnt.:</b> ~25–45 € (LTE-M modulis 8–15 €, matavimo mikroschema, relė, maitinimo šaltinis, plokštė, korpusas, surinkimas) + ~13 € SIM</li>
+      <li><b>Gaminant ~100 vnt.:</b> ~50–80 € už vienetą</li>
+      <li><b>Vienkartinės išlaidos:</b> ~15–40 tūkst. € kūrimui + ~12–40 tūkst. € ES sertifikavimui</li>
+      <li><b>Atsiperka</b> tik nuo kelių tūkstančių vienetų, t. y. tik plečiantis į Baltijos šalis</li>
+    </ul></div>
+  </div>
+  <p class="note">Pilotiniam projektui: išbandyti Shelly (pigiausias), Teltonika + Eastron (patikimas, savas mobilusis ryšys) ir Dragino (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
 </section>
 
 <section id="lt-tasks">
