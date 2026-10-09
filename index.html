@@ -170,8 +170,13 @@
   <h2>Device costs <span class="pill p-wait">Estimate</span></h2>
   <p class="muted">Price of the monitoring device itself, without installation. Retail prices found online; volume prices will be lower. Mostly excl. VAT; pound and dollar prices converted approximately.</p>
 
+  <div class="card verdict">
+    <h3>Decision: the device has its own mobile connection</h3>
+    <p style="margin:0">Most sites won't give access to store Wi-Fi, and chain IT departments rarely allow outside devices on their network. So the device must work <b>without store Wi-Fi</b>, on its own mobile connection (LTE-M / NB-IoT, with 2G as fallback). Wi-Fi devices such as Shelly are kept only as an exception, for sites where Wi-Fi or a separate router is already available.</p>
+  </div>
+
   <div class="grid">
-    <div class="stat"><b>~€15</b><span>cheapest: Wi-Fi relay with power metering (Shelly), needs store Wi-Fi</span></div>
+    <div class="stat"><b>~€15</b><span>Wi-Fi relay with power metering (Shelly): exception only, needs store Wi-Fi</span></div>
     <div class="stat"><b>~€150–165</b><span>full mobile-network kit: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
     <div class="stat"><b>~€90–140</b><span>mobile-network, battery, no cable cutting: Dragino CS01-CB + clamp + SIM</span></div>
     <div class="stat"><b>€399</b><span>Lichtwart ECO, plus €8/month and €24 SIM (~€900 over 5 years)</span></div>
@@ -208,7 +213,7 @@
       <li><b>Pays off</b> only from several thousand units, so only once we expand across the Baltics</li>
     </ul></div>
   </div>
-  <p class="note">For the pilot: test Shelly (cheapest), Teltonika + Eastron (reliable, own mobile connection) and Dragino (battery, no cable cutting), with a Lichtwart unit as a benchmark. Ask Teltonika directly for volume prices.</p>
+  <p class="note">For the pilot: test the two mobile-network options, Teltonika + Eastron (reliable, mains-powered) and Dragino (battery, no cable cutting), with a Lichtwart unit as a benchmark. Shelly is optional, only for sites with Wi-Fi. Expect about €90–165 per sign for the device. Ask Teltonika directly for volume prices.</p>
 </section>
 
 <section id="en-tasks">
@@ -239,7 +244,7 @@
     <p class="note" style="margin-top:0">Who: sign maker's workshop, with the founder. Budget about €300–400. This decides which device goes into the pilot.</p>
     <div class="progress"><div></div></div>
     <div class="checklist" data-group="bench">
-      <label><input type="checkbox"><span>Buy 2–3 candidates: <b>Shelly 1PM Gen3</b> (Wi-Fi, ~€15), <b>Dragino CS01-CB</b> or <b>Teltonika TRB145 + Eastron SDM120M</b> (mobile network), optionally a light sensor, plus a 1NCE SIM.</span></label>
+      <label><input type="checkbox"><span>Buy the mobile-network candidates: <b>Teltonika TRB145 + Eastron SDM120M</b> and <b>Dragino CS01-CB</b> with a small current clamp, plus 1NCE SIMs. Optionally a <b>Shelly 1PM Gen3</b> (~€15) for Wi-Fi sites and a light sensor.</span></label>
       <label><input type="checkbox"><span>Fit each one to a typical sign in the workshop.</span></label>
       <label><input type="checkbox"><span>Check accuracy at low loads: real LED loads of 20, 50, 100 and 300 W.</span></label>
       <label><input type="checkbox"><span>Simulate failures: full power off, one LED module disconnected, power supply failure, mains cut. Record what each device reports and how fast.</span></label>
@@ -263,7 +268,7 @@
     <tr><th style="width:4%">#</th><th style="width:30%">Decision</th><th>What it settles</th><th style="width:22%">Needs</th></tr>
     <tr><td>1</td><td><b>Who subscribes and pays</b></td><td>Does the retail client pay, with the sign maker reselling? Does the sign maker pay and use it as its own tool? Or a mix: bundled into new signs, with the sign maker paying for existing signs it maintains?</td><td><span class="pill p-wait">Waiting</span>Task 1</td></tr>
     <tr><td>2</td><td><b>Partnership terms</b></td><td>Device pricing versus sharing subscription revenue, who owns what, territory and duration.</td><td><span class="pill p-wait">Waiting</span>Decision 1</td></tr>
-    <tr><td>3</td><td><b>Pilot device</b></td><td>Which certified device, which sensing method and network. Alternatively, partner with Lichtwart in the Baltics.</td><td><span class="pill p-wait">Waiting</span>Task 2</td></tr>
+    <tr><td>3</td><td><b>Pilot device</b></td><td>Which certified mobile-network device (no store Wi-Fi) and which sensing method. Alternatively, partner with Lichtwart in the Baltics.</td><td><span class="pill p-wait">Waiting</span>Task 2</td></tr>
     <tr><td>4</td><td><b>Monitoring platform</b></td><td>Build our own versus build on an existing IoT platform. Minimum features: live sign status, alerts, repair jobs, client view.</td><td><span class="pill p-wait">Waiting</span>Decision 3</td></tr>
     <tr><td>5</td><td><b>Pricing &amp; unit economics</b></td><td>Price per sign, cost per sign, break-even number of signs.</td><td><span class="pill p-wait">Waiting</span>Decisions 1–4</td></tr>
     <tr><td>6</td><td><b>Pilot plan &amp; go/no-go</b></td><td>Which client and signs, how many, how long, and what results mean "go".</td><td><span class="pill p-wait">Waiting</span>Decisions 2 and 5</td></tr>
@@ -379,8 +384,13 @@
   <h2>Įrenginių kainos <span class="pill p-wait">Įvertis</span></h2>
   <p class="muted">Paties stebėsenos įrenginio kaina, be montavimo. Mažmeninės kainos, rastos internete; perkant kiekius kainos bus mažesnės. Dažniausiai be PVM; svarų ir dolerių kainos perskaičiuotos apytiksliai.</p>
 
+  <div class="card verdict">
+    <h3>Sprendimas: įrenginys turi savo mobilųjį ryšį</h3>
+    <p style="margin:0">Daugumoje vietų prieigos prie parduotuvės „Wi-Fi“ nebus, o tinklų IT skyriai retai leidžia jungti pašalinius įrenginius prie savo tinklo. Todėl įrenginys turi veikti <b>be parduotuvės „Wi-Fi“</b>, per savo mobilųjį ryšį (LTE-M / NB-IoT, su 2G kaip atsarginiu variantu). „Wi-Fi“ įrenginiai, pvz., Shelly, paliekami tik kaip išimtis toms vietoms, kur „Wi-Fi“ ar atskiras maršrutizatorius jau yra.</p>
+  </div>
+
   <div class="grid">
-    <div class="stat"><b>~15 €</b><span>pigiausias: „Wi-Fi“ relė su galios matavimu (Shelly), reikia parduotuvės „Wi-Fi“</span></div>
+    <div class="stat"><b>~15 €</b><span>„Wi-Fi“ relė su galios matavimu (Shelly): tik išimtis, reikia parduotuvės „Wi-Fi“</span></div>
     <div class="stat"><b>~150–165 €</b><span>pilnas mobiliojo ryšio komplektas: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
     <div class="stat"><b>~90–140 €</b><span>mobilusis ryšys, baterija, be laidų pjaustymo: Dragino CS01-CB + replės + SIM</span></div>
     <div class="stat"><b>399 €</b><span>Lichtwart ECO, plius 8 €/mėn. ir 24 € SIM (~900 € per 5 metus)</span></div>
@@ -417,7 +427,7 @@
       <li><b>Atsiperka</b> tik nuo kelių tūkstančių vienetų, t. y. tik plečiantis į Baltijos šalis</li>
     </ul></div>
   </div>
-  <p class="note">Pilotiniam projektui: išbandyti Shelly (pigiausias), Teltonika + Eastron (patikimas, savas mobilusis ryšys) ir Dragino (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
+  <p class="note">Pilotiniam projektui: išbandyti du mobiliojo ryšio variantus – Teltonika + Eastron (patikimas, maitinamas iš tinklo) ir Dragino (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Shelly – pasirinktinai, tik vietoms su „Wi-Fi“. Įrenginiui vienai iškabai numatyti apie 90–165 €. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
 </section>
 
 <section id="lt-tasks">
@@ -448,7 +458,7 @@
     <p class="note" style="margin-top:0">Kas: iškabų gamintojo dirbtuvės kartu su projekto iniciatoriumi. Biudžetas apie 300–400 €. Tai lemia, kuris įrenginys bus naudojamas pilotiniame projekte.</p>
     <div class="progress"><div></div></div>
     <div class="checklist" data-group="bench">
-      <label><input type="checkbox"><span>Įsigyti 2–3 kandidatus: <b>Shelly 1PM Gen3</b> („Wi-Fi“, ~15 €), <b>Dragino CS01-CB</b> arba <b>Teltonika TRB145 + Eastron SDM120M</b> (mobilusis ryšys), pasirinktinai šviesos jutiklį, taip pat 1NCE SIM kortelę.</span></label>
+      <label><input type="checkbox"><span>Įsigyti mobiliojo ryšio kandidatus: <b>Teltonika TRB145 + Eastron SDM120M</b> ir <b>Dragino CS01-CB</b> su mažomis srovės replėmis, taip pat 1NCE SIM korteles. Pasirinktinai – <b>Shelly 1PM Gen3</b> (~15 €) vietoms su „Wi-Fi“ ir šviesos jutiklį.</span></label>
       <label><input type="checkbox"><span>Kiekvieną sumontuoti tipinėje iškaboje dirbtuvėse.</span></label>
       <label><input type="checkbox"><span>Patikrinti tikslumą esant mažoms apkrovoms: realios 20, 50, 100 ir 300 W LED apkrovos.</span></label>
       <label><input type="checkbox"><span>Imituoti gedimus: visiškas maitinimo dingimas, atjungtas vienas LED modulis, maitinimo šaltinio gedimas, tinklo įtampos dingimas. Užfiksuoti, ką ir kaip greitai praneša kiekvienas įrenginys.</span></label>
@@ -472,7 +482,7 @@
     <tr><th style="width:4%">Nr.</th><th style="width:30%">Sprendimas</th><th>Ką jis nulemia</th><th style="width:22%">Reikia</th></tr>
     <tr><td>1</td><td><b>Kas prenumeruoja ir moka</b></td><td>Ar moka prekybos tinklas, o iškabų gamintojas perparduoda? Ar moka iškabų gamintojas ir naudoja kaip savo įrankį? Ar mišrus variantas: įtraukta į naujų iškabų kainą, o už jau prižiūrimas iškabas moka gamintojas?</td><td><span class="pill p-wait">Laukia</span>1 užduoties</td></tr>
     <tr><td>2</td><td><b>Partnerystės sąlygos</b></td><td>Įrenginių kainodara ar prenumeratos pajamų dalijimasis, kam kas priklauso, teritorija ir trukmė.</td><td><span class="pill p-wait">Laukia</span>1 sprendimo</td></tr>
-    <tr><td>3</td><td><b>Pilotinio projekto įrenginys</b></td><td>Kuris sertifikuotas įrenginys, koks matavimo būdas ir ryšys. Arba – partnerystė su Lichtwart Baltijos šalyse.</td><td><span class="pill p-wait">Laukia</span>2 užduoties</td></tr>
+    <tr><td>3</td><td><b>Pilotinio projekto įrenginys</b></td><td>Kuris sertifikuotas mobiliojo ryšio įrenginys (be parduotuvės „Wi-Fi“) ir koks matavimo būdas. Arba – partnerystė su Lichtwart Baltijos šalyse.</td><td><span class="pill p-wait">Laukia</span>2 užduoties</td></tr>
     <tr><td>4</td><td><b>Stebėsenos platforma</b></td><td>Kurti savo ar remtis esama IoT platforma. Minimalios funkcijos: iškabų būsena realiu laiku, įspėjimai, remonto užduotys, kliento vaizdas.</td><td><span class="pill p-wait">Laukia</span>3 sprendimo</td></tr>
     <tr><td>5</td><td><b>Kainodara ir vieneto ekonomika</b></td><td>Kaina už iškabą, savikaina už iškabą, atsipirkimui reikalingas iškabų skaičius.</td><td><span class="pill p-wait">Laukia</span>1–4 sprendimų</td></tr>
     <tr><td>6</td><td><b>Pilotinio projekto planas ir sprendimas tęsti ar ne</b></td><td>Kuris klientas ir kurios iškabos, kiek, kiek laiko ir kokie rezultatai reiškia „tęsiame“.</td><td><span class="pill p-wait">Laukia</span>2 ir 5 sprendimų</td></tr>
