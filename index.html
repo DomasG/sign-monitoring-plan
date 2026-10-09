@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign Monitoring — Pilot Plan</title>
+<style>
+  :root {
+    --ink: #1c2430; --muted: #5d6b7c; --line: #e3e8ee; --bg: #f6f8fa; --card: #fff;
+    --accent: #0f6fde; --good: #1a8f4c; --warn: #b26a00; --bad: #c0392b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); }
+  body[data-lang="en"] .lang-lt, body[data-lang="lt"] .lang-en { display: none; }
+  header { background: #102a43; color: #fff; padding: 36px 24px 28px; }
+  header .wrap { max-width: 980px; margin: 0 auto; position: relative; }
+  header h1 { margin: 0 0 6px; font-size: 28px; padding-right: 110px; }
+  header p { margin: 0; color: #c7d4e2; }
+  .lang-switch { position: absolute; top: 0; right: 0; display: flex; border: 1px solid #4a6a8a; border-radius: 8px; overflow: hidden; }
+  .lang-switch button { border: 0; border-radius: 0; background: transparent; color: #c7d4e2; padding: 6px 12px; font-weight: 600; }
+  .lang-switch button.active { background: #fff; color: #102a43; }
+  .lang-switch button:hover { color: #fff; }
+  .lang-switch button.active:hover { color: #102a43; }
+  nav { position: sticky; top: 0; z-index: 5; background: #fff; border-bottom: 1px solid var(--line); }
+  nav .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; display: flex; gap: 18px; overflow-x: auto; }
+  nav a { padding: 12px 0; color: var(--muted); text-decoration: none; white-space: nowrap; font-weight: 500; }
+  nav a:hover { color: var(--accent); }
+  main { max-width: 980px; margin: 0 auto; padding: 24px; }
+  section { margin: 0 0 34px; scroll-margin-top: 50px; }
+  h2 { font-size: 21px; margin: 0 0 12px; padding-top: 8px; }
+  h3 { font-size: 16px; margin: 0 0 6px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .stat b { display: block; font-size: 24px; color: var(--accent); }
+  .stat span { color: var(--muted); font-size: 13px; }
+  .verdict { border-left: 5px solid var(--good); }
+  .pill { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 99px; margin-right: 6px; vertical-align: middle; }
+  .p-now { background: #e3f4ea; color: var(--good); }
+  .p-wait { background: #fdf0dc; color: var(--warn); }
+  .p-done { background: #e8eef6; color: #3b5b80; }
+  ul { margin: 6px 0 0; padding-left: 20px; }
+  li { margin: 3px 0; }
+  .muted { color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: #f0f3f7; font-size: 13px; color: var(--muted); }
+  tr:last-child td { border-bottom: 0; }
+  .checklist label { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); cursor: pointer; }
+  .checklist label:last-child { border-bottom: 0; }
+  .checklist input { margin-top: 4px; width: 16px; height: 16px; flex: none; }
+  .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
+  .progress { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+  .progress div { height: 100%; background: var(--good); width: 0; transition: width .2s; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .flow .step { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
+  .flow .arrow { color: var(--muted); }
+  .note { font-size: 13px; color: var(--muted); }
+  .toolbar { display: flex; gap: 10px; margin-top: 14px; }
+  button { font: inherit; border: 1px solid #c9d3de; background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  @media print {
+    nav, .toolbar, .lang-switch { display: none; }
+    body { background: #fff; }
+    .card, .stat, table { break-inside: avoid; }
+  }
+</style>
+</head>
+<body data-lang="en">
+
+<header>
+  <div class="wrap">
+    <div class="lang-switch">
+      <button data-set-lang="en">EN</button>
+      <button data-set-lang="lt">LT</button>
+    </div>
+    <div class="lang-en">
+      <h1>Sign Monitoring — Pilot Plan</h1>
+      <p>Monitoring devices and a live monitoring platform for illuminated retail signs, with repairs done by our sign-making partner. Lithuania first, then the Baltics.</p>
+      <p style="margin-top:8px;font-size:13px">Status as of 9 October 2026 · Working draft for discussion</p>
+    </div>
+    <div class="lang-lt">
+      <h1>Iškabų stebėsena — pilotinio projekto planas</h1>
+      <p>Stebėsenos įrenginiai ir realaus laiko stebėsenos platforma šviečiančioms prekybos tinklų iškaboms, o remontą atlieka mūsų partneris – iškabų gamintojas. Pirmiausia Lietuva, vėliau Baltijos šalys.</p>
+      <p style="margin-top:8px;font-size:13px">Būklė 2026 m. spalio 9 d. · Darbinis juodraštis aptarimui</p>
+    </div>
+  </div>
+</header>
+
+<!-- ========================= ENGLISH ========================= -->
+<div class="lang-en">
+<nav>
+  <div class="wrap">
+    <a href="#en-idea">The idea</a>
+    <a href="#en-findings">What we found</a>
+    <a href="#en-tasks">Tasks now</a>
+    <a href="#en-decisions">Decisions ahead</a>
+    <a href="#en-budget">Budget &amp; timeline</a>
+    <a href="#en-risks">Risks</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="en-idea">
+  <h2>The idea</h2>
+  <div class="card">
+    <p style="margin-top:0">A small <b>monitoring device</b> is fitted to each illuminated sign, either at the workshop when the sign is made or on site for signs already mounted. It reports over the mobile network whether the sign is lit. When a sign fails, the <b>monitoring platform</b> raises an alert and creates a <b>repair job</b> for the technicians, who go and fix it, often before the retailer notices.</p>
+    <div class="flow">
+      <span class="step">Sign fails</span><span class="arrow">→</span>
+      <span class="step">Device detects it</span><span class="arrow">→</span>
+      <span class="step">Platform raises an alert</span><span class="arrow">→</span>
+      <span class="step">Repair job sent to technicians</span><span class="arrow">→</span>
+      <span class="step">Sign fixed and confirmed working</span>
+    </div>
+    <p class="note" style="margin-bottom:0">Sold as a monthly subscription per sign. Scope for now: illuminated signs only, not other in-store equipment.</p>
+  </div>
+  <div class="card">
+    <h3>Why it matters to the sign maker</h3>
+    <ul>
+      <li>Find failures before the client complains, which helps meet maintenance-contract response times.</li>
+      <li>Fewer wasted trips: technicians know which sign failed, when, and how (fully dark or partly dark).</li>
+      <li>A new recurring revenue line on every sign sold, and a reason for clients to choose us over other sign makers.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="en-findings">
+  <h2>What we found <span class="pill p-done">Research complete</span></h2>
+  <div class="grid">
+    <div class="stat"><b>~8,100</b><span>illuminated chain-retail signs in Lithuania (mid estimate; range 4,700–11,600)</span></div>
+    <div class="stat"><b>~17,000</b><span>across Lithuania, Latvia and Estonia (mid estimate)</span></div>
+    <div class="stat"><b>~20</b><span>head offices control most Lithuanian chain signs, so there are few buyers to win</span></div>
+    <div class="stat"><b>€0.10–1</b><span>mobile connectivity per sign per month</span></div>
+  </div>
+  <div class="card verdict" style="margin-top:14px">
+    <h3>Overall</h3>
+    <p style="margin:0">The model works elsewhere: in Germany, <b>Lichtwart</b> sells exactly this through sign makers, at €399 hardware plus €8 a month, about €13.40 per sign per month over five years. <b>No one in the Baltics monitors illuminated signs yet</b>. The closest local player, impressBox (Vilnius), monitors digital screens only. Ready-made certified devices and cheap mobile connectivity mean a pilot fits within about €10k. Lithuania alone is a small market, so the long-term business is Baltic-wide.</p>
+  </div>
+  <table>
+    <tr><th style="width:22%">Topic</th><th>Finding</th></tr>
+    <tr><td><b>Devices</b></td><td>Ready-made devices exist. They cost about €15 for Wi-Fi smart relays, about €60–150 for LoRaWAN plus a gateway, and about €80–210 for devices with their own mobile connection. The most reliable way to detect failure is to measure the sign's power with an in-line meter, which also catches partial failures. Many clip-on clamps can't read the low current of an LED sign (under 1–2 A). A meter wired after the sign's timer can't tell "switched off on schedule" from "broken", so the device must handle that.</td></tr>
+    <tr><td><b>Connectivity</b></td><td>LTE-M is the best option. Bitė claims nationwide coverage, and Telia and Bitė both sell it. Use 2G only as a fallback (expected to shut down around 2028), and avoid 3G (already off). Multi-network IoT SIMs cost from €12 for 10 years (1NCE). Telia, Bitė and Tele2 all offer free test SIMs.</td></tr>
+    <tr><td><b>Rules</b></td><td>Fitting a device to a sign already on a building needs a company with a VERT electrical-installation certificate and certified staff. Fitting at the workshop is likely product assembly, to be confirmed with VERT. Signs sit behind a 30 mA residual-current breaker, so devices must not trip it. Designing our own device would cost about €12–40k and take 6–16 weeks to certify, so the pilot uses <b>already-certified devices under their original brand</b>. A hidden device doesn't affect advertising permits; a visible box may, especially in heritage zones.</td></tr>
+    <tr><td><b>Market</b></td><td>Fuel stations and pharmacies have the most signs, followed by grocery chains (Maxima, Iki, Rimi, Lidl, Norfa), telecom shops, banks and fast food. If every Lithuanian sign subscribed at €5 a month, revenue would be about €0.5M a year. A realistic share is lower, which is why the Baltics matter.</td></tr>
+  </table>
+</section>
+
+<section id="en-tasks">
+  <h2>Tasks now</h2>
+  <p class="muted">These two tasks unblock everything else. Ticks are saved in your browser.</p>
+
+  <div class="card">
+    <h3><span class="pill p-now">Start now</span>1. Facts about the sign-making business</h3>
+    <p class="note" style="margin-top:0">Who: sign maker, with the founder. These answers decide who pays the subscription and what the commercial deal looks like.</p>
+    <div class="progress"><div></div></div>
+    <div class="checklist" data-group="facts">
+      <label><input type="checkbox"><span>Which retail clients do we have <b>maintenance contracts</b> with, and roughly how many signs does each cover?</span></label>
+      <label><input type="checkbox"><span>What do those contracts promise: response time, fixed monthly fee or pay-per-repair, any penalties?</span></label>
+      <label><input type="checkbox"><span>How do we find out a sign has failed today: store staff call, client complaint, scheduled inspection?</span></label>
+      <label><input type="checkbox"><span>Roughly how many sign failures per year, and how long from failure to repair?</span></label>
+      <label><input type="checkbox"><span>What does one repair visit cost (people, vehicle, travel), and how many visits are wasted (wrong diagnosis, wrong parts, sign already working)?</span></label>
+      <label><input type="checkbox"><span>How many new signs do we build per year, and for whom? These could have a device fitted at the workshop.</span></label>
+      <label><input type="checkbox"><span>What's inside a typical sign electrically (LED modules, power supply, timer or twilight switch)? Is there room for a device?</span></label>
+      <label><input type="checkbox"><span>Do we hold a <b>VERT electrical-installation certificate</b> with certified staff? It's required to fit devices on site.</span></label>
+      <label><input type="checkbox"><span>Who holds the CE Declaration of Conformity for our signs, and could it be updated to include a monitoring device?</span></label>
+      <label><input type="checkbox"><span>Would one retail client agree to a pilot on 20–50 signs? Who at that client would decide?</span></label>
+      <label><input type="checkbox"><span>Would we rather resell the subscription to clients, or use it ourselves as a tool for our maintenance contracts?</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="pill p-now">Start now</span>2. Workshop bench test of candidate devices</h3>
+    <p class="note" style="margin-top:0">Who: sign maker's workshop, with the founder. Budget about €300–400. This decides which device goes into the pilot.</p>
+    <div class="progress"><div></div></div>
+    <div class="checklist" data-group="bench">
+      <label><input type="checkbox"><span>Buy 2–3 candidates: <b>Shelly 1PM Gen3</b> (Wi-Fi, ~€15), <b>Dragino CS01-CB</b> or <b>Teltonika TRB145 + Eastron SDM120M</b> (mobile network), optionally a light sensor, plus a 1NCE SIM.</span></label>
+      <label><input type="checkbox"><span>Fit each one to a typical sign in the workshop.</span></label>
+      <label><input type="checkbox"><span>Check accuracy at low loads: real LED loads of 20, 50, 100 and 300 W.</span></label>
+      <label><input type="checkbox"><span>Simulate failures: full power off, one LED module disconnected, power supply failure, mains cut. Record what each device reports and how fast.</span></label>
+      <label><input type="checkbox"><span>Simulate a scheduled switch-off by the timer or twilight switch. Can each device tell "scheduled off" from "failed" and from "device offline"?</span></label>
+      <label><input type="checkbox"><span>Confirm no device trips the sign's 30 mA residual-current breaker.</span></label>
+      <label><input type="checkbox"><span>Log the temperature inside a closed lightbox over a few hours of operation.</span></label>
+      <label><input type="checkbox"><span>Ask Lichtwart for a demo unit and Baltic reseller or partner terms, as a benchmark.</span></label>
+      <label><input type="checkbox"><span>Record results: detection reliability, alert delay, installation time in minutes, cost per unit.</span></label>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button onclick="window.print()">Print / save as PDF</button>
+    <button onclick="resetChecks()">Clear ticks</button>
+  </div>
+</section>
+
+<section id="en-decisions">
+  <h2>Decisions ahead</h2>
+  <p class="muted">Decided together, in this order. Each one waits on the items listed in "Needs".</p>
+  <table>
+    <tr><th style="width:4%">#</th><th style="width:30%">Decision</th><th>What it settles</th><th style="width:22%">Needs</th></tr>
+    <tr><td>1</td><td><b>Who subscribes and pays</b></td><td>Does the retail client pay, with the sign maker reselling? Does the sign maker pay and use it as its own tool? Or a mix: bundled into new signs, with the sign maker paying for existing signs it maintains?</td><td><span class="pill p-wait">Waiting</span>Task 1</td></tr>
+    <tr><td>2</td><td><b>Partnership terms</b></td><td>Device pricing versus sharing subscription revenue, who owns what, territory and duration.</td><td><span class="pill p-wait">Waiting</span>Decision 1</td></tr>
+    <tr><td>3</td><td><b>Pilot device</b></td><td>Which certified device, which sensing method and network. Alternatively, partner with Lichtwart in the Baltics.</td><td><span class="pill p-wait">Waiting</span>Task 2</td></tr>
+    <tr><td>4</td><td><b>Monitoring platform</b></td><td>Build our own versus build on an existing IoT platform. Minimum features: live sign status, alerts, repair jobs, client view.</td><td><span class="pill p-wait">Waiting</span>Decision 3</td></tr>
+    <tr><td>5</td><td><b>Pricing &amp; unit economics</b></td><td>Price per sign, cost per sign, break-even number of signs.</td><td><span class="pill p-wait">Waiting</span>Decisions 1–4</td></tr>
+    <tr><td>6</td><td><b>Pilot plan &amp; go/no-go</b></td><td>Which client and signs, how many, how long, and what results mean "go".</td><td><span class="pill p-wait">Waiting</span>Decisions 2 and 5</td></tr>
+  </table>
+</section>
+
+<section id="en-budget">
+  <h2>Budget &amp; timeline <span class="pill p-wait">Proposed</span></h2>
+  <table>
+    <tr><th style="width:30%">Phase</th><th style="width:20%">When</th><th>What</th><th style="width:16%">Est. cost</th></tr>
+    <tr><td><b>Facts &amp; bench test</b></td><td>Weeks 1–2</td><td>Tasks 1 and 2 above. Order free operator test SIMs (Telia, Bitė, Tele2).</td><td>€300–400</td></tr>
+    <tr><td><b>Decisions</b></td><td>Weeks 3–5</td><td>Decisions 1–6. Agree partnership terms in writing before the pilot.</td><td>€0</td></tr>
+    <tr><td><b>Pilot build</b></td><td>Weeks 6–8</td><td>20–50 devices, SIMs, a first version of the monitoring platform, installation on the client's signs.</td><td>€1.5–5k</td></tr>
+    <tr><td><b>Pilot run</b></td><td>Months 3–4</td><td>Live monitoring. Measure failures caught, repair time, wasted visits avoided, and false alarms.</td><td>€0.5–1k</td></tr>
+    <tr><td><b>Go / no-go</b></td><td>End of month 4</td><td>Does the client agree to a paid subscription afterwards? If yes, plan the roll-out and Baltic expansion.</td><td>—</td></tr>
+  </table>
+  <p class="note">Estimates assume ready-made certified devices, with the sign maker's team doing installation. All within the €10k pilot budget, with a reserve left over.</p>
+</section>
+
+<section id="en-risks">
+  <h2>Main risks</h2>
+  <div class="grid">
+    <div class="card"><h3>Willingness to pay</h3><p class="muted" style="margin:0">A dark sign costs little at a single store. The case relies on maintenance contracts and brand image across many sites. The pilot must prove it.</p></div>
+    <div class="card"><h3>Small home market</h3><p class="muted" style="margin:0">Lithuania alone is roughly €0.5M a year at most. Real scale needs Latvia and Estonia, and possibly Poland.</p></div>
+    <div class="card"><h3>False alarms</h3><p class="muted" style="margin:0">Timers, power cuts and partly failed LEDs must be told apart from real failures, or clients will ignore alerts.</p></div>
+    <div class="card"><h3>Competition</h3><p class="muted" style="margin:0">Lichtwart could enter the Baltics. impressBox already sells screen monitoring to the same retailers. Moving early matters.</p></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<!-- ========================= LIETUVIŲ ========================= -->
+<div class="lang-lt" lang="lt">
+<nav>
+  <div class="wrap">
+    <a href="#lt-idea">Idėja</a>
+    <a href="#lt-findings">Ką išsiaiškinome</a>
+    <a href="#lt-tasks">Užduotys dabar</a>
+    <a href="#lt-decisions">Laukiantys sprendimai</a>
+    <a href="#lt-budget">Biudžetas ir terminai</a>
+    <a href="#lt-risks">Rizikos</a>
+  </div>
+</nav>
+
+<main>
+
+<section id="lt-idea">
+  <h2>Idėja</h2>
+  <div class="card">
+    <p style="margin-top:0">Prie kiekvienos šviečiančios iškabos montuojamas nedidelis <b>stebėsenos įrenginys</b>: dirbtuvėse gaminant naują iškabą arba vietoje, jei iškaba jau sumontuota. Jis mobiliuoju ryšiu praneša, ar iškaba šviečia. Iškabai sugedus, <b>stebėsenos platforma</b> pateikia įspėjimą ir sukuria <b>remonto užduotį</b> technikams, kurie nuvyksta ir sutaiso iškabą – dažnai dar prieš tai, kai gedimą pastebi prekybininkas.</p>
+    <div class="flow">
+      <span class="step">Iškaba sugenda</span><span class="arrow">→</span>
+      <span class="step">Įrenginys tai užfiksuoja</span><span class="arrow">→</span>
+      <span class="step">Platforma pateikia įspėjimą</span><span class="arrow">→</span>
+      <span class="step">Remonto užduotis išsiunčiama technikams</span><span class="arrow">→</span>
+      <span class="step">Iškaba sutaisyta ir patvirtinta, kad veikia</span>
+    </div>
+    <p class="note" style="margin-bottom:0">Parduodama kaip mėnesinė prenumerata už kiekvieną iškabą. Kol kas apimtis – tik šviečiančios iškabos, ne kita parduotuvės įranga.</p>
+  </div>
+  <div class="card">
+    <h3>Kodėl tai svarbu iškabų gamintojui</h3>
+    <ul>
+      <li>Gedimai aptinkami dar prieš klientui pasiskundžiant, todėl lengviau laikytis priežiūros sutartyse numatytų reagavimo terminų.</li>
+      <li>Mažiau tuščių išvykų: technikai žino, kuri iškaba sugedo, kada ir kaip (visiškai užgeso ar šviečia tik iš dalies).</li>
+      <li>Nauja pasikartojančių pajamų eilutė už kiekvieną parduotą iškabą ir priežastis klientams rinktis mus, o ne kitus gamintojus.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="lt-findings">
+  <h2>Ką išsiaiškinome <span class="pill p-done">Tyrimas baigtas</span></h2>
+  <div class="grid">
+    <div class="stat"><b>~8 100</b><span>šviečiančių prekybos tinklų iškabų Lietuvoje (vidutinis įvertis; intervalas 4 700–11 600)</span></div>
+    <div class="stat"><b>~17 000</b><span>Lietuvoje, Latvijoje ir Estijoje kartu (vidutinis įvertis)</span></div>
+    <div class="stat"><b>~20</b><span>centrinių būstinių valdo didžiąją dalį Lietuvos tinklų iškabų, tad pirkėjų, kuriuos reikia įtikinti, nedaug</span></div>
+    <div class="stat"><b>0,10–1 €</b><span>mobiliojo ryšio kaina vienai iškabai per mėnesį</span></div>
+  </div>
+  <div class="card verdict" style="margin-top:14px">
+    <h3>Apibendrinimas</h3>
+    <p style="margin:0">Modelis veikia kitur: Vokietijoje <b>Lichtwart</b> parduoda būtent tokį sprendimą per iškabų gamintojus – 399 € už įrangą ir 8 € per mėnesį, t. y. apie 13,40 € už iškabą per mėnesį per penkerius metus. <b>Baltijos šalyse šviečiančių iškabų dar niekas nestebi.</b> Artimiausias vietinis žaidėjas – impressBox (Vilnius) – stebi tik skaitmeninius ekranus. Paruošti sertifikuoti įrenginiai ir pigus mobilusis ryšys leidžia pilotinį projektą įgyvendinti maždaug už 10 tūkst. €. Vien Lietuvos rinka nedidelė, todėl ilgalaikis verslas – visos Baltijos šalys.</p>
+  </div>
+  <table>
+    <tr><th style="width:22%">Tema</th><th>Išvada</th></tr>
+    <tr><td><b>Įrenginiai</b></td><td>Paruoštų įrenginių yra. „Wi-Fi“ išmaniosios relės kainuoja apie 15 €, LoRaWAN įrenginiai – apie 60–150 € ir dar reikia tinklų sietuvo (angl. <i>gateway</i>), o įrenginiai su savo mobiliuoju ryšiu – apie 80–210 €. Patikimiausias būdas aptikti gedimą – matuoti iškabos galią į grandinę įjungtu skaitikliu; taip aptinkami ir daliniai gedimai. Daugelis uždedamų srovės replių nepajėgia išmatuoti mažos LED iškabos srovės (mažiau nei 1–2 A). Skaitiklis, prijungtas po iškabos laikmačio, negali atskirti „išjungta pagal grafiką“ nuo „sugedo“, todėl įrenginys turi tai išspręsti.</td></tr>
+    <tr><td><b>Ryšys</b></td><td>Geriausias pasirinkimas – LTE-M. Bitė teigia, kad jos tinklas dengia visą šalį; LTE-M siūlo ir Telia, ir Bitė. 2G tinka tik kaip atsarginis variantas (jį planuojama išjungti apie 2028 m.), o 3G jau išjungtas. Kelių operatorių daiktų interneto (IoT) SIM kortelės kainuoja nuo 12 € už 10 metų (1NCE). Telia, Bitė ir Tele2 siūlo nemokamas bandomąsias SIM korteles.</td></tr>
+    <tr><td><b>Teisinis reguliavimas</b></td><td>Įrenginį prie jau ant pastato sumontuotos iškabos gali jungti tik įmonė, turinti VERT elektros įrenginių įrengimo atestatą ir atestuotus darbuotojus. Montavimas dirbtuvėse greičiausiai laikomas gaminio surinkimu – tai reikia patvirtinti su VERT. Iškabos jungiamos per 30 mA nuotėkio srovės išjungiklį, todėl įrenginiai neturi jo suveikdinti. Sukurti savo įrenginį ir jį sertifikuoti kainuotų apie 12–40 tūkst. € ir užtruktų 6–16 savaičių, todėl pilotiniame projekte naudojami <b>jau sertifikuoti įrenginiai su originaliu gamintojo prekės ženklu</b>. Paslėptas įrenginys reklamos leidimams įtakos neturi; matoma dėžutė gali turėti, ypač paveldo zonose.</td></tr>
+    <tr><td><b>Rinka</b></td><td>Daugiausia iškabų turi degalinės ir vaistinės, toliau – maisto prekių tinklai (Maxima, Iki, Rimi, Lidl, Norfa), ryšio operatorių salonai, bankai ir greitojo maisto restoranai. Jei kiekviena Lietuvos iškaba būtų prenumeruojama už 5 € per mėnesį, pajamos siektų apie 0,5 mln. € per metus. Realiai pasiekiama dalis mažesnė, todėl svarbios Baltijos šalys.</td></tr>
+  </table>
+</section>
+
+<section id="lt-tasks">
+  <h2>Užduotys dabar</h2>
+  <p class="muted">Šios dvi užduotys atrakina visa kita. Pažymėjimai išsaugomi jūsų naršyklėje.</p>
+
+  <div class="card">
+    <h3><span class="pill p-now">Pradėti dabar</span>1. Faktai apie iškabų gamybos verslą</h3>
+    <p class="note" style="margin-top:0">Kas: iškabų gamintojas kartu su projekto iniciatoriumi. Šie atsakymai lemia, kas mokės už prenumeratą ir kaip atrodys komercinis susitarimas.</p>
+    <div class="progress"><div></div></div>
+    <div class="checklist" data-group="facts">
+      <label><input type="checkbox"><span>Su kuriais prekybos tinklais turime <b>priežiūros sutartis</b> ir maždaug kiek iškabų apima kiekviena?</span></label>
+      <label><input type="checkbox"><span>Ką tos sutartys numato: reagavimo laiką, fiksuotą mėnesinį mokestį ar apmokėjimą už kiekvieną remontą, baudas?</span></label>
+      <label><input type="checkbox"><span>Kaip šiandien sužinome, kad iškaba sugedo: paskambina parduotuvės darbuotojai, skundžiasi klientas, planinė apžiūra?</span></label>
+      <label><input type="checkbox"><span>Maždaug kiek iškabų gedimų būna per metus ir kiek laiko praeina nuo gedimo iki remonto?</span></label>
+      <label><input type="checkbox"><span>Kiek kainuoja viena remonto išvyka (žmonės, automobilis, kelionė) ir kiek išvykų būna tuščių (klaidinga diagnozė, netinkamos dalys, iškaba jau veikia)?</span></label>
+      <label><input type="checkbox"><span>Kiek naujų iškabų pagaminame per metus ir kam? Į jas įrenginį būtų galima sumontuoti dirbtuvėse.</span></label>
+      <label><input type="checkbox"><span>Kas tipinėje iškaboje yra elektros požiūriu (LED moduliai, maitinimo šaltinis, laikmatis ar prieblandos jungiklis)? Ar yra vietos įrenginiui?</span></label>
+      <label><input type="checkbox"><span>Ar turime <b>VERT elektros įrenginių įrengimo atestatą</b> ir atestuotus darbuotojus? Jis būtinas montuojant įrenginius vietoje.</span></label>
+      <label><input type="checkbox"><span>Kas turi mūsų iškabų CE atitikties deklaraciją ir ar ją būtų galima papildyti stebėsenos įrenginiu?</span></label>
+      <label><input type="checkbox"><span>Ar vienas prekybos tinklas sutiktų išbandyti sprendimą 20–50 iškabų? Kas tame tinkle priimtų sprendimą?</span></label>
+      <label><input type="checkbox"><span>Ar norėtume prenumeratą perparduoti klientams, ar patys ją naudoti kaip įrankį savo priežiūros sutartims vykdyti?</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="pill p-now">Pradėti dabar</span>2. Kandidatinių įrenginių bandymas dirbtuvėse</h3>
+    <p class="note" style="margin-top:0">Kas: iškabų gamintojo dirbtuvės kartu su projekto iniciatoriumi. Biudžetas apie 300–400 €. Tai lemia, kuris įrenginys bus naudojamas pilotiniame projekte.</p>
+    <div class="progress"><div></div></div>
+    <div class="checklist" data-group="bench">
+      <label><input type="checkbox"><span>Įsigyti 2–3 kandidatus: <b>Shelly 1PM Gen3</b> („Wi-Fi“, ~15 €), <b>Dragino CS01-CB</b> arba <b>Teltonika TRB145 + Eastron SDM120M</b> (mobilusis ryšys), pasirinktinai šviesos jutiklį, taip pat 1NCE SIM kortelę.</span></label>
+      <label><input type="checkbox"><span>Kiekvieną sumontuoti tipinėje iškaboje dirbtuvėse.</span></label>
+      <label><input type="checkbox"><span>Patikrinti tikslumą esant mažoms apkrovoms: realios 20, 50, 100 ir 300 W LED apkrovos.</span></label>
+      <label><input type="checkbox"><span>Imituoti gedimus: visiškas maitinimo dingimas, atjungtas vienas LED modulis, maitinimo šaltinio gedimas, tinklo įtampos dingimas. Užfiksuoti, ką ir kaip greitai praneša kiekvienas įrenginys.</span></label>
+      <label><input type="checkbox"><span>Imituoti išjungimą pagal laikmatį ar prieblandos jungiklį. Ar kiekvienas įrenginys atskiria „išjungta pagal grafiką“ nuo „sugedo“ ir nuo „įrenginys neprisijungęs“?</span></label>
+      <label><input type="checkbox"><span>Įsitikinti, kad nė vienas įrenginys nesuveikdina iškabos 30 mA nuotėkio srovės išjungiklio.</span></label>
+      <label><input type="checkbox"><span>Kelias valandas registruoti temperatūrą uždarame šviesdėžės korpuse.</span></label>
+      <label><input type="checkbox"><span>Paprašyti Lichtwart demonstracinio įrenginio ir Baltijos šalių platintojo ar partnerio sąlygų palyginimui.</span></label>
+      <label><input type="checkbox"><span>Užfiksuoti rezultatus: aptikimo patikimumą, įspėjimo vėlavimą, montavimo laiką minutėmis, vieneto kainą.</span></label>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button onclick="window.print()">Spausdinti / išsaugoti PDF</button>
+    <button onclick="resetChecks()">Išvalyti pažymėjimus</button>
+  </div>
+</section>
+
+<section id="lt-decisions">
+  <h2>Laukiantys sprendimai</h2>
+  <p class="muted">Sprendžiama kartu, šia tvarka. Kiekvienas sprendimas laukia stulpelyje „Reikia“ nurodytų dalykų.</p>
+  <table>
+    <tr><th style="width:4%">Nr.</th><th style="width:30%">Sprendimas</th><th>Ką jis nulemia</th><th style="width:22%">Reikia</th></tr>
+    <tr><td>1</td><td><b>Kas prenumeruoja ir moka</b></td><td>Ar moka prekybos tinklas, o iškabų gamintojas perparduoda? Ar moka iškabų gamintojas ir naudoja kaip savo įrankį? Ar mišrus variantas: įtraukta į naujų iškabų kainą, o už jau prižiūrimas iškabas moka gamintojas?</td><td><span class="pill p-wait">Laukia</span>1 užduoties</td></tr>
+    <tr><td>2</td><td><b>Partnerystės sąlygos</b></td><td>Įrenginių kainodara ar prenumeratos pajamų dalijimasis, kam kas priklauso, teritorija ir trukmė.</td><td><span class="pill p-wait">Laukia</span>1 sprendimo</td></tr>
+    <tr><td>3</td><td><b>Pilotinio projekto įrenginys</b></td><td>Kuris sertifikuotas įrenginys, koks matavimo būdas ir ryšys. Arba – partnerystė su Lichtwart Baltijos šalyse.</td><td><span class="pill p-wait">Laukia</span>2 užduoties</td></tr>
+    <tr><td>4</td><td><b>Stebėsenos platforma</b></td><td>Kurti savo ar remtis esama IoT platforma. Minimalios funkcijos: iškabų būsena realiu laiku, įspėjimai, remonto užduotys, kliento vaizdas.</td><td><span class="pill p-wait">Laukia</span>3 sprendimo</td></tr>
+    <tr><td>5</td><td><b>Kainodara ir vieneto ekonomika</b></td><td>Kaina už iškabą, savikaina už iškabą, atsipirkimui reikalingas iškabų skaičius.</td><td><span class="pill p-wait">Laukia</span>1–4 sprendimų</td></tr>
+    <tr><td>6</td><td><b>Pilotinio projekto planas ir sprendimas tęsti ar ne</b></td><td>Kuris klientas ir kurios iškabos, kiek, kiek laiko ir kokie rezultatai reiškia „tęsiame“.</td><td><span class="pill p-wait">Laukia</span>2 ir 5 sprendimų</td></tr>
+  </table>
+</section>
+
+<section id="lt-budget">
+  <h2>Biudžetas ir terminai <span class="pill p-wait">Siūloma</span></h2>
+  <table>
+    <tr><th style="width:30%">Etapas</th><th style="width:20%">Kada</th><th>Kas</th><th style="width:16%">Numatoma kaina</th></tr>
+    <tr><td><b>Faktai ir bandymas dirbtuvėse</b></td><td>1–2 savaitės</td><td>Aukščiau nurodytos 1 ir 2 užduotys. Užsisakyti nemokamas operatorių bandomąsias SIM korteles (Telia, Bitė, Tele2).</td><td>300–400 €</td></tr>
+    <tr><td><b>Sprendimai</b></td><td>3–5 savaitės</td><td>1–6 sprendimai. Prieš pilotinį projektą raštu susitarti dėl partnerystės sąlygų.</td><td>0 €</td></tr>
+    <tr><td><b>Pilotinio projekto parengimas</b></td><td>6–8 savaitės</td><td>20–50 įrenginių, SIM kortelės, pirmoji stebėsenos platformos versija, montavimas kliento iškabose.</td><td>1,5–5 tūkst. €</td></tr>
+    <tr><td><b>Pilotinio projekto vykdymas</b></td><td>3–4 mėnesiai</td><td>Stebėsena realiu laiku. Matuojama: aptikti gedimai, remonto laikas, išvengtos tuščios išvykos ir klaidingi įspėjimai.</td><td>0,5–1 tūkst. €</td></tr>
+    <tr><td><b>Sprendimas tęsti ar ne</b></td><td>4 mėnesio pabaiga</td><td>Ar klientas sutinka po bandymo mokėti už prenumeratą? Jei taip – planuojamas platesnis diegimas ir plėtra į Baltijos šalis.</td><td>—</td></tr>
+  </table>
+  <p class="note">Įverčiai remiasi paruoštais sertifikuotais įrenginiais, o montavimą atlieka iškabų gamintojo komanda. Viskas telpa į 10 tūkst. € pilotinio projekto biudžetą, dar lieka rezervo.</p>
+</section>
+
+<section id="lt-risks">
+  <h2>Pagrindinės rizikos</h2>
+  <div class="grid">
+    <div class="card"><h3>Pasirengimas mokėti</h3><p class="muted" style="margin:0">Vienoje parduotuvėje užgesusi iškaba kainuoja nedaug. Verslo pagrindas – priežiūros sutartys ir prekės ženklo įvaizdis daugelyje vietų. Tai turi įrodyti pilotinis projektas.</p></div>
+    <div class="card"><h3>Maža vietinė rinka</h3><p class="muted" style="margin:0">Vien Lietuva – daugiausia apie 0,5 mln. € per metus. Tikram mastui reikia Latvijos ir Estijos, galbūt Lenkijos.</p></div>
+    <div class="card"><h3>Klaidingi įspėjimai</h3><p class="muted" style="margin:0">Laikmačiai, elektros dingimai ir iš dalies sugedę LED turi būti atskiriami nuo tikrų gedimų, kitaip klientai ims ignoruoti įspėjimus.</p></div>
+    <div class="card"><h3>Konkurencija</h3><p class="muted" style="margin:0">Lichtwart gali ateiti į Baltijos šalis. impressBox jau parduoda ekranų stebėseną tiems patiems prekybos tinklams. Svarbu judėti anksti.</p></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+  const CHECKS_KEY = "sign-monitoring-plan-checks";
+  const LANG_KEY = "sign-monitoring-plan-lang";
+  const saved = JSON.parse(localStorage.getItem(CHECKS_KEY) || "{}");
+
+  function listsFor(group) { return [...document.querySelectorAll('.checklist[data-group="' + group + '"]')]; }
+
+  function render(group) {
+    const state = saved[group] || [];
+    listsFor(group).forEach(list => {
+      const boxes = [...list.querySelectorAll("input")];
+      boxes.forEach((b, i) => b.checked = !!state[i]);
+      const bar = list.closest(".card").querySelector(".progress div");
+      bar.style.width = (100 * boxes.filter(b => b.checked).length / boxes.length) + "%";
+    });
+  }
+
+  const groups = [...new Set([...document.querySelectorAll(".checklist")].map(l => l.dataset.group))];
+  groups.forEach(group => {
+    listsFor(group).forEach(list => {
+      list.querySelectorAll("input").forEach((b, i) => b.addEventListener("change", () => {
+        saved[group] = saved[group] || [];
+        saved[group][i] = b.checked;
+        localStorage.setItem(CHECKS_KEY, JSON.stringify(saved));
+        render(group);
+      }));
+    });
+    render(group);
+  });
+
+  function resetChecks() {
+    localStorage.removeItem(CHECKS_KEY);
+    Object.keys(saved).forEach(k => delete saved[k]);
+    groups.forEach(render);
+  }
+
+  function setLang(lang) {
+    document.body.dataset.lang = lang;
+    document.documentElement.lang = lang;
+    document.title = lang === "lt" ? "Iškabų stebėsena — pilotinio projekto planas" : "Sign Monitoring — Pilot Plan";
+    document.querySelectorAll("[data-set-lang]").forEach(b => b.classList.toggle("active", b.dataset.setLang === lang));
+    localStorage.setItem(LANG_KEY, lang);
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
+
+  const hash = location.hash.replace("#", "");
+  const fromHash = hash === "lt" || hash.startsWith("lt-") ? "lt" : (hash === "en" || hash.startsWith("en-") ? "en" : null);
+  setLang(fromHash || localStorage.getItem(LANG_KEY) || "en");
+</script>
+</body>
+</html>
