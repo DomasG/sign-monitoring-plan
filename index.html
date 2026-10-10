@@ -77,12 +77,12 @@
     <div class="lang-en">
       <h1>Sign Monitoring — Pilot Plan</h1>
       <p>Monitoring devices and a live monitoring platform for illuminated retail signs, with repairs done by our sign-making partner. Lithuania first, then the Baltics.</p>
-      <p style="margin-top:8px;font-size:13px">Status as of 9 October 2026 · Working draft for discussion</p>
+      <p style="margin-top:8px;font-size:13px">Status as of 9 October 2026 · Facts re-checked 9 October 2026 · Working draft for discussion</p>
     </div>
     <div class="lang-lt">
       <h1>Iškabų stebėsena — pilotinio projekto planas</h1>
       <p>Stebėsenos įrenginiai ir realaus laiko stebėsenos platforma šviečiančioms prekybos tinklų iškaboms, o remontą atlieka mūsų partneris – iškabų gamintojas. Pirmiausia Lietuva, vėliau Baltijos šalys.</p>
-      <p style="margin-top:8px;font-size:13px">Būklė 2026 m. spalio 9 d. · Darbinis juodraštis aptarimui</p>
+      <p style="margin-top:8px;font-size:13px">Būklė 2026 m. spalio 9 d. · Faktai pertikrinti 2026 m. spalio 9 d. · Darbinis juodraštis aptarimui</p>
     </div>
   </div>
 </header>
@@ -132,18 +132,24 @@
     <div class="stat"><b>~8,100</b><span>illuminated chain-retail signs in Lithuania (mid estimate; range 4,700–11,600)</span></div>
     <div class="stat"><b>~17,000</b><span>across Lithuania, Latvia and Estonia (mid estimate)</span></div>
     <div class="stat"><b>~20</b><span>head offices control most Lithuanian chain signs, so there are few buyers to win</span></div>
-    <div class="stat"><b>€0.10–1</b><span>mobile connectivity per sign per month</span></div>
+    <div class="stat"><b>€0.10–3</b><span>mobile connectivity per sign per month (€0.10 with a 10-year IoT SIM, ~€1.6–2.5 on operator plans)</span></div>
   </div>
   <div class="card verdict" style="margin-top:14px">
     <h3>Overall</h3>
-    <p style="margin:0">The model works elsewhere: in Germany, <b>Lichtwart</b> sells exactly this through sign makers, at €399 hardware plus €8 a month, about €13.40 per sign per month over five years. <b>No one in the Baltics monitors illuminated signs yet</b>. The closest local player, impressBox (Vilnius), monitors digital screens only. Ready-made certified devices and cheap mobile connectivity mean a pilot fits within about €10k. Lithuania alone is a small market, so the long-term business is Baltic-wide.</p>
+    <p style="margin:0">The model works elsewhere: in Germany, <b>Lichtwart</b> sells exactly this through sign makers, at €399 hardware plus €8 a month, about €13.40 per sign per month over five years. <b>We found no one in the Baltics selling monitoring for static illuminated signs yet.</b> The closest local player, impressBox (Vilnius), monitors digital screens and is testing LED fault detection from power use (beta), the same method we would use. Ready-made certified devices and cheap mobile connectivity mean a pilot fits within about €10k. Lithuania alone is a small market, so the long-term business is Baltic-wide.</p>
   </div>
   <table>
     <tr><th style="width:22%">Topic</th><th>Finding</th></tr>
     <tr><td><b>Devices</b></td><td>Ready-made devices exist. They cost about €15 for Wi-Fi smart relays, about €60–150 for LoRaWAN plus a gateway, and about €80–210 for devices with their own mobile connection. The most reliable way to detect failure is to measure the sign's power with an in-line meter, which also catches partial failures. Many clip-on clamps can't read the low current of an LED sign (under 1–2 A). A meter wired after the sign's timer can't tell "switched off on schedule" from "broken", so the device must handle that.</td></tr>
-    <tr><td><b>Connectivity</b></td><td>LTE-M is the best option. Bitė claims nationwide coverage, and Telia and Bitė both sell it. Use 2G only as a fallback (expected to shut down around 2028), and avoid 3G (already off). Multi-network IoT SIMs cost from €12 for 10 years (1NCE). Telia, Bitė and Tele2 all offer free test SIMs.</td></tr>
-    <tr><td><b>Rules</b></td><td>Fitting a device to a sign already on a building needs a company with a VERT electrical-installation certificate and certified staff. Fitting at the workshop is likely product assembly, to be confirmed with VERT. Signs sit behind a 30 mA residual-current breaker, so devices must not trip it. Designing our own device would cost about €12–40k and take 6–16 weeks to certify, so the pilot uses <b>already-certified devices under their original brand</b>. A hidden device doesn't affect advertising permits; a visible box may, especially in heritage zones.</td></tr>
-    <tr><td><b>Market</b></td><td>Fuel stations and pharmacies have the most signs, followed by grocery chains (Maxima, Iki, Rimi, Lidl, Norfa), telecom shops, banks and fast food. If every Lithuanian sign subscribed at €5 a month, revenue would be about €0.5M a year. A realistic share is lower, which is why the Baltics matter.</td></tr>
+    <tr><td><b>Connectivity</b></td><td>Use a device with <b>LTE-M</b>, with NB-IoT and 2G as fallback. In Lithuania:
+      <ul>
+        <li><b>Telia:</b> NB-IoT since 2019/2020 and LTE-M on the 900 MHz band freed by its 3G switch-off (Dec 2022). It also has the strongest network overall (5G reaches 99.7% of households, per the regulator RRT), keeps 2G until at least 2030, offers a free 1-month IoT trial and an IoT management platform, and already builds partner monitoring solutions. That makes Telia the most likely connectivity and sales partner. It publishes no LTE-M coverage figure.</li>
+        <li><b>Bitė:</b> the only operator that publicly claims LTE-M covers all of Lithuania (since Feb 2023). It sells NB-IoT and offers a 6-month trial pack of 10 NB-IoT SIMs.</li>
+        <li><b>Tele2:</b> no public LTE-M or NB-IoT launch in Lithuania, but Tele2 IoT (Sweden) lists both on its network and offers a 2-month trial kit.</li>
+      </ul>
+      3G is off (Telia Dec 2022, Tele2 Mar 2025, Bitė Dec 2025). 4G covers 97.9% of the territory (RRT). Operators don't publish IoT prices; reseller plans cost about €1.6–2.5 a month excl. VAT. 1NCE sells a 10-year IoT SIM for €12 (500 MB) with LTE-M in Lithuania, but no NB-IoT. Test both Telia and Bitė at real sign sites.</td></tr>
+    <tr><td><b>Rules</b></td><td>Fitting a device to a sign already on a building is electrical installation work up to 1000 V. It needs a VERT installation attestation, held by a company or an individual electrician, with attested staff (Energy Law Art. 22; VERT ruling O3E-1388). Fitting at the workshop is likely product assembly, to be confirmed with VERT; connecting the finished sign on site still needs an attested installer. Outdoor illuminated advertising on TN supply systems must be protected by a 30 mA residual-current breaker (Lighting Installation Rules, point 50), and normal leakage must stay at about 10 mA or less, so the device's own leakage counts. Certifying our own device is estimated at about €12–40k (an EU Commission study puts cybersecurity testing alone at €5–50k+), so the pilot uses <b>already-certified devices under their original brand</b>. Putting our own brand on a device would make us its legal manufacturer (RED Art. 13). Outdoor advertising still needs a municipal permit (Advertising Law Art. 12). No rule covers hidden internal parts; a visible box may breach the approved design, especially in heritage zones.</td></tr>
+    <tr><td><b>Market</b></td><td>Fuel stations and pharmacies have the most signs, followed by grocery chains (Maxima, Iki, Rimi, Lidl, Norfa), telecom shops, banks and fast food. If every Lithuanian sign subscribed at €5 a month, revenue would be about €0.5M a year. A realistic share is lower, which is why the Baltics matter. Store counts checked in October 2026: Maxima 241, Iki 245+, Rimi 87, Lidl 87, Norfa 159; Camelia ~350, Eurovaistinė 260+, Gintarinė 250+, BENU 80+ (1,227 pharmacies in total); Viada 133, Circle K 99, Neste 85, Orlen 30. The estimate may count some signs twice where pharmacies and telecom shops sit inside malls or grocery stores.</td></tr>
   </table>
 
   <div class="card" style="margin-top:14px">
@@ -152,23 +158,36 @@
     <div class="grid" style="margin-bottom:12px">
       <div class="stat"><b>Not public</b><span>revenue: as a small German GmbH it doesn't have to publish a profit-and-loss statement, and no source discloses it</span></div>
       <div class="stat"><b>~€1M</b><span>pre-seed funding, September 2024 (BitStone Capital, Vireo Ventures, better ventures)</span></div>
-      <div class="stat"><b>15–16</b><span>employees (LinkedIn, gritt.io)</span></div>
+      <div class="stat"><b>~15</b><span>employees (gritt.io 15, LinkedIn 16, Dealroom "11–50")</span></div>
       <div class="stat"><b>$4–7M</b><span>enterprise value: Dealroom's estimate, not an official figure</span></div>
     </div>
     <ul>
       <li><b>Company:</b> LichtWART GmbH, Herford. Founded 2020 by Gregor Giataganas and Johannes Mailänder; Jackson Bond (co-founder of relayr) joined in 2024. It sells together with Deutsche Telekom, whose IoT cloud and SIM the product runs on.</li>
-      <li><b>Customers named on its site:</b> Hoyer (300+ fuel stations, pioneer customer), VARTA, HanseMerkur, OKTAN, MHB Mobility, LOTHER Gruppe. Mainly fuel stations, car dealerships and retail.</li>
+      <li><b>Customers named on its site:</b> Hoyer (owns 300+ fuel stations; pioneer customer with a gradual rollout), VARTA, HanseMerkur, OKTAN, MHB Mobility, LOTHER Gruppe. Ströer's Blowup billboards cut energy use by 52% with Lichtwart (Feb 2026). Lichtwart itself reports 250+ modules and 35+ operators across Europe, so it is still small.</li>
+      <li><b>Price:</b> €399 hardware + €8 a month cloud + €24 SIM for 60 months, published on its sign-maker page (wetec.lichtwart.io). Older DALI-based modules were reported at €700–1,600 each (Süddeutsche Zeitung, 2023).</li>
       <li><b>Pitch beyond failure alerts:</b> remote dimming and timers ("up to 60% lower electricity costs"), lower light emissions to help win building permits under Germany's immission-control law, ESG reporting data, and monitoring of other equipment such as car-wash leaks.</li>
       <li><b>Sales channel:</b> sign manufacturers fit the module and get access for administration and billing. Retrofit needs DALI-compatible LED drivers.</li>
       <li><b>What it implies for us (illustrative):</b> at about €13.40 per sign per month, €1M a year of recurring revenue needs about 6,200 signs, close to the size of the whole Lithuanian chain-sign market. Energy savings and permit help may be stronger selling points than failure alerts alone.</li>
     </ul>
-    <p class="note" style="margin-bottom:0">Sources: lichtwart.io; Lichtwart funding press release (Sep 2024); Founders Foundation; Handelsregister HRB 16999 (Amtsgericht Bad Oeynhausen) via North Data; Dealroom; gritt.io; LinkedIn. Checked 9 October 2026.</p>
+    <p class="note" style="margin-bottom:0">Sources: lichtwart.io; wetec.lichtwart.io; case-study.lichtwart.io; Lichtwart funding press release (Sep 2024); Founders Foundation; Handelsregister HRB 16999 (Amtsgericht Bad Oeynhausen) via North Data; Dealroom; gritt.io; LinkedIn; invidis (Feb 2026); Süddeutsche Zeitung. Checked 9 October 2026.</p>
+  </div>
+
+  <div class="card">
+    <h3>Other players to know</h3>
+    <ul>
+      <li><b>impressBox</b> (UAB Dėžutė, Vilnius): digital-screen management for 5,000+ screens in the Baltics, €15–19 per screen per month, customers including Benu, IKI, Narvesen, Drogas and Medicija. It is testing LED fault detection from power use (beta), the closest local threat and a possible partner.</li>
+      <li><b>Telia, Bitė, Tele2:</b> sell IoT connectivity and management platforms, not sign monitoring. Telia builds monitoring solutions with partners and promotes energy monitoring for retail chains, so it could become a partner or a competitor.</li>
+      <li><b>Civinity:</b> runs remote building management for Rimi (Lithuania and Latvia) and Neste Lithuania. It could add signs, so it is a possible partner or rival.</li>
+      <li><b>Teltonika</b> (Vilnius): devices we would build on, not a competing product.</li>
+      <li><b>Street-lighting control:</b> Lucidus/Citylight and Lusety (Lithuania), MAUGLO (Latvia), Elero (Estonia). Similar technology, a different market.</li>
+      <li><b>Elsewhere in Europe:</b> Lumosoft/Lumosigns (Netherlands and UK, launched April 2025), Neopaul (Belgium, remote monitoring of illuminated signs), Pharmédias (France, connected pharmacy crosses). Outside Europe: Outdoorlink (US, billboard lighting alerts).</li>
+    </ul>
   </div>
 </section>
 
 <section id="en-devices">
   <h2>Device costs <span class="pill p-wait">Estimate</span></h2>
-  <p class="muted">Price of the monitoring device itself, without installation. Retail prices found online; volume prices will be lower. Mostly excl. VAT; pound and dollar prices converted approximately.</p>
+  <p class="muted">Price of the monitoring device itself, without installation. Retail prices found online, checked October 2026; volume prices will be lower. <b>Excl. VAT unless marked</b> (add 21% in Lithuania); pound and dollar prices converted approximately.</p>
 
   <div class="card verdict">
     <h3>Decision: the device has its own mobile connection</h3>
@@ -177,8 +196,8 @@
 
   <div class="grid">
     <div class="stat"><b>~€15</b><span>Wi-Fi relay with power metering (Shelly): exception only, needs store Wi-Fi</span></div>
-    <div class="stat"><b>~€150–165</b><span>full mobile-network kit: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
-    <div class="stat"><b>~€90–140</b><span>mobile-network, battery, no cable cutting: Dragino CS01-CB + clamp + SIM</span></div>
+    <div class="stat"><b>~€145–175</b><span>full LTE-M/NB-IoT kit: Teltonika TRB256 (or TRB255) + Eastron SDM120 + SIM</span></div>
+    <div class="stat"><b>~€105–155</b><span>LTE-M/NB-IoT, battery, no cable cutting: Dragino CS01-CB + clamp + SIM</span></div>
     <div class="stat"><b>€399</b><span>Lichtwart ECO, plus €8/month and €24 SIM (~€900 over 5 years)</span></div>
   </div>
 
@@ -186,34 +205,39 @@
     <tr><th>Device</th><th>Maker, country</th><th style="width:16%">Price per unit</th><th>Notes</th></tr>
     <tr><td><b>Shelly 1PM Gen3</b> / 1PM Mini Gen3</td><td>Shelly, Bulgaria</td><td>~€15 (incl. VAT)</td><td>Wi-Fi metering relay; can replace the sign's timer</td></tr>
     <tr><td><b>Shelly Pro 1PM</b> (DIN rail)</td><td>Shelly, Bulgaria</td><td>~€76 (incl. VAT)</td><td>Wi-Fi + LAN, 5-year warranty</td></tr>
-    <tr><td><b>Teltonika TRB140 / TRB145 / TRB245</b></td><td>Teltonika, <b>Lithuania</b></td><td>~€105–180</td><td>LTE modem that reads a meter; local supplier</td></tr>
-    <tr><td><b>Eastron SDM120</b> (meter)</td><td>Eastron, China</td><td>~€33–41</td><td>DIN-rail energy meter, used with Teltonika</td></tr>
-    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, China</td><td>~€89</td><td>Meter with built-in LoRaWAN</td></tr>
-    <tr><td><b>Dragino CS01-CB / CS01-NB</b></td><td>Dragino, China</td><td>~€76–125 + clamp</td><td>NB-IoT/LTE-M, battery-powered current sensor</td></tr>
-    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, China</td><td>~€63–96 + clamp</td><td>LoRaWAN version</td></tr>
-    <tr><td><b>Milesight CT101</b></td><td>Milesight, China</td><td>~€100–105</td><td>LoRaWAN clamp; doesn't report below 1.5 A</td></tr>
-    <tr><td><b>Milesight WS558</b></td><td>Milesight, China</td><td>~€122–148</td><td>LoRaWAN lighting controller, 8 outputs</td></tr>
-    <tr><td><b>Milesight UC300</b></td><td>Milesight, China</td><td>~€190–210</td><td>LTE controller on DIN rail</td></tr>
-    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, China</td><td>~€185–219</td><td>Light sensor, backup check only</td></tr>
-    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taiwan</td><td>~€119–179</td><td>LoRaWAN current sensor, battery</td></tr>
-    <tr><td><b>Elsys ELT Lite / ERS2</b></td><td>Elsys, Sweden</td><td>~€72–86</td><td>General-purpose LoRaWAN sensors</td></tr>
-    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Germany</td><td>€399 + €8/mo + €24 SIM</td><td>Complete solution for signs (device + cloud)</td></tr>
+    <tr><td><b>Teltonika TRB256 / TRB255</b></td><td>Teltonika, <b>Lithuania</b></td><td>~€98–120</td><td><b>LTE-M/NB-IoT</b> gateway with RS485, reads a meter; local supplier. Best fit for our decision.</td></tr>
+    <tr><td><b>Teltonika TRB145</b></td><td>Teltonika, Lithuania</td><td>~€95–122</td><td>LTE Cat 1 with RS485, <b>no LTE-M/NB-IoT</b></td></tr>
+    <tr><td><b>Teltonika TRB140 / TRB245</b></td><td>Teltonika, Lithuania</td><td>~€105–160</td><td>LTE Cat 4, no LTE-M/NB-IoT; the TRB140 has no RS485</td></tr>
+    <tr><td><b>Eastron SDM120</b> (Modbus, MID)</td><td>Eastron, China</td><td>~€33–40</td><td>DIN-rail energy meter, read by the Teltonika gateway</td></tr>
+    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, China</td><td>~€89–154</td><td>Meter with built-in LoRaWAN</td></tr>
+    <tr><td><b>Dragino CS01-CB</b></td><td>Dragino, China</td><td>~€81–120 + clamp</td><td>NB-IoT + LTE-M current sensor, 8,500 mAh battery</td></tr>
+    <tr><td><b>Dragino CS01-NB</b></td><td>Dragino, China</td><td>~€81–90 + clamp</td><td>NB-IoT only</td></tr>
+    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, China</td><td>~€63–75 + clamp</td><td>LoRaWAN version</td></tr>
+    <tr><td><b>Hardwario CHESTER Current</b></td><td>Hardwario, Czech Republic</td><td>On request</td><td>LTE-M/NB-IoT/LoRaWAN, up to 4 clamps, IP67</td></tr>
+    <tr><td><b>ACRIOS S0 → NB-IoT converter</b></td><td>ACRIOS, Czech Republic</td><td>from ~€40</td><td>Reads a meter's pulse output (e.g. SDM120) over NB-IoT</td></tr>
+    <tr><td><b>Milesight CT101</b></td><td>Milesight, China</td><td>~€73–89</td><td>LoRaWAN clamp; self-powered it needs ~1.5 A, while a 100 W LED sign draws ~0.4 A, so <b>unsuitable for most signs</b></td></tr>
+    <tr><td><b>Milesight WS558</b></td><td>Milesight, China</td><td>~€122–142</td><td>LoRaWAN lighting controller, 8 outputs</td></tr>
+    <tr><td><b>Milesight UC300</b></td><td>Milesight, China</td><td>~€189–210</td><td>LTE Cat 1 controller (LoRaWAN version exists); needs an external meter</td></tr>
+    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, China</td><td>~€189–212</td><td>Light sensor, backup check only</td></tr>
+    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taiwan</td><td>~€120–220</td><td>LoRaWAN current sensor, battery not included</td></tr>
+    <tr><td><b>Elsys ELT Lite</b></td><td>Elsys, Sweden</td><td>~€88</td><td>General-purpose LoRaWAN sensor input</td></tr>
+    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Germany</td><td>€399 + €8/mo + €24 SIM</td><td>Complete solution for signs (device + cloud), LTE-M/NB-IoT</td></tr>
   </table>
 
   <div class="grid" style="margin-top:14px">
     <div class="card" style="margin:0"><h3>Extra costs</h3><ul>
-      <li><b>SIM:</b> ~€12 once for 10 years (1NCE), or ~€1.6–3/month via operators</li>
+      <li><b>SIM:</b> ~€13 once for 10 years (1NCE, €12 plan + €1 SIM, 500 MB in total, so keep data use low), or ~€1.6–2.5/month on operator plans via resellers</li>
       <li><b>LoRaWAN gateway:</b> ~€115–245 per site (no national LoRaWAN network in Lithuania)</li>
-      <li><b>Current clamps</b> for Dragino: price to be quoted</li>
+      <li><b>Current clamps</b> for Dragino: roughly €10–20, to be quoted</li>
     </ul></div>
     <div class="card" style="margin:0"><h3>Our own device (rough estimate)</h3><ul>
-      <li><b>Parts, at 1,000 units:</b> ~€25–45 (LTE-M module €8–15, metering chip, relay, power supply, PCB, enclosure, assembly) + ~€13 SIM</li>
-      <li><b>At ~100 units:</b> ~€50–80 each</li>
-      <li><b>One-off:</b> ~€15–40k development + ~€12–40k EU certification</li>
+      <li><b>Parts, at 1,000 units:</b> ~€35–60 (LTE-M module such as Quectel BG95 or Nordic nRF9151 €12–22, metering chip, relay, power supply, PCB, enclosure, assembly) + ~€13 SIM</li>
+      <li><b>At ~100 units:</b> ~€60–90 each</li>
+      <li><b>One-off:</b> ~€15–40k development + ~€12–40k EU certification and operator approval</li>
       <li><b>Pays off</b> only from several thousand units, so only once we expand across the Baltics</li>
     </ul></div>
   </div>
-  <p class="note">For the pilot: test the two mobile-network options, Teltonika + Eastron (reliable, mains-powered) and Dragino (battery, no cable cutting), with a Lichtwart unit as a benchmark. Shelly is optional, only for sites with Wi-Fi. Expect about €90–165 per sign for the device. Ask Teltonika directly for volume prices.</p>
+  <p class="note">For the pilot: test the two LTE-M/NB-IoT options, Teltonika TRB256 + Eastron SDM120 (reliable, mains-powered) and Dragino CS01-CB (battery, no cable cutting), with a Lichtwart unit as a benchmark. Shelly is optional, only for sites with Wi-Fi. Expect about €105–175 per sign for the device, excl. VAT. Ask Teltonika directly for volume prices.</p>
 </section>
 
 <section id="en-tasks">
@@ -244,7 +268,7 @@
     <p class="note" style="margin-top:0">Who: sign maker's workshop, with the founder. Budget about €300–400. This decides which device goes into the pilot.</p>
     <div class="progress"><div></div></div>
     <div class="checklist" data-group="bench">
-      <label><input type="checkbox"><span>Buy the mobile-network candidates: <b>Teltonika TRB145 + Eastron SDM120M</b> and <b>Dragino CS01-CB</b> with a small current clamp, plus 1NCE SIMs. Optionally a <b>Shelly 1PM Gen3</b> (~€15) for Wi-Fi sites and a light sensor.</span></label>
+      <label><input type="checkbox"><span>Buy the LTE-M/NB-IoT candidates: <b>Teltonika TRB256 + Eastron SDM120M</b> and <b>Dragino CS01-CB</b> with a small current clamp, plus 1NCE SIMs and Telia/Bitė trial SIMs. Optionally a <b>Shelly 1PM Gen3</b> (~€15) for Wi-Fi sites and a light sensor.</span></label>
       <label><input type="checkbox"><span>Fit each one to a typical sign in the workshop.</span></label>
       <label><input type="checkbox"><span>Check accuracy at low loads: real LED loads of 20, 50, 100 and 300 W.</span></label>
       <label><input type="checkbox"><span>Simulate failures: full power off, one LED module disconnected, power supply failure, mains cut. Record what each device reports and how fast.</span></label>
@@ -279,7 +303,7 @@
   <h2>Budget &amp; timeline <span class="pill p-wait">Proposed</span></h2>
   <table>
     <tr><th style="width:30%">Phase</th><th style="width:20%">When</th><th>What</th><th style="width:16%">Est. cost</th></tr>
-    <tr><td><b>Facts &amp; bench test</b></td><td>Weeks 1–2</td><td>Tasks 1 and 2 above. Order free operator test SIMs (Telia, Bitė, Tele2).</td><td>€300–400</td></tr>
+    <tr><td><b>Facts &amp; bench test</b></td><td>Weeks 1–2</td><td>Tasks 1 and 2 above. Order operator trial SIMs: Telia (free 1-month IoT trial), Bitė (6-month pack of 10 NB-IoT SIMs), Tele2 IoT (2-month kit).</td><td>€300–400</td></tr>
     <tr><td><b>Decisions</b></td><td>Weeks 3–5</td><td>Decisions 1–6. Agree partnership terms in writing before the pilot.</td><td>€0</td></tr>
     <tr><td><b>Pilot build</b></td><td>Weeks 6–8</td><td>20–50 devices, SIMs, a first version of the monitoring platform, installation on the client's signs.</td><td>€1.5–5k</td></tr>
     <tr><td><b>Pilot run</b></td><td>Months 3–4</td><td>Live monitoring. Measure failures caught, repair time, wasted visits avoided, and false alarms.</td><td>€0.5–1k</td></tr>
@@ -294,7 +318,7 @@
     <div class="card"><h3>Willingness to pay</h3><p class="muted" style="margin:0">A dark sign costs little at a single store. The case relies on maintenance contracts and brand image across many sites. The pilot must prove it.</p></div>
     <div class="card"><h3>Small home market</h3><p class="muted" style="margin:0">Lithuania alone is roughly €0.5M a year at most. Real scale needs Latvia and Estonia, and possibly Poland.</p></div>
     <div class="card"><h3>False alarms</h3><p class="muted" style="margin:0">Timers, power cuts and partly failed LEDs must be told apart from real failures, or clients will ignore alerts.</p></div>
-    <div class="card"><h3>Competition</h3><p class="muted" style="margin:0">Lichtwart could enter the Baltics. impressBox already sells screen monitoring to the same retailers. Moving early matters.</p></div>
+    <div class="card"><h3>Competition</h3><p class="muted" style="margin:0">Lichtwart could enter the Baltics. impressBox already sells screen monitoring to the same retailers and is testing LED fault detection. Telia or Civinity could add sign monitoring to what they already sell. Moving early matters.</p></div>
   </div>
 </section>
 
@@ -346,18 +370,24 @@
     <div class="stat"><b>~8 100</b><span>šviečiančių prekybos tinklų iškabų Lietuvoje (vidutinis įvertis; intervalas 4 700–11 600)</span></div>
     <div class="stat"><b>~17 000</b><span>Lietuvoje, Latvijoje ir Estijoje kartu (vidutinis įvertis)</span></div>
     <div class="stat"><b>~20</b><span>centrinių būstinių valdo didžiąją dalį Lietuvos tinklų iškabų, tad pirkėjų, kuriuos reikia įtikinti, nedaug</span></div>
-    <div class="stat"><b>0,10–1 €</b><span>mobiliojo ryšio kaina vienai iškabai per mėnesį</span></div>
+    <div class="stat"><b>0,10–3 €</b><span>mobiliojo ryšio kaina vienai iškabai per mėnesį (0,10 € su 10 metų IoT SIM, ~1,6–2,5 € pagal operatorių planus)</span></div>
   </div>
   <div class="card verdict" style="margin-top:14px">
     <h3>Apibendrinimas</h3>
-    <p style="margin:0">Modelis veikia kitur: Vokietijoje <b>Lichtwart</b> parduoda būtent tokį sprendimą per iškabų gamintojus – 399 € už įrangą ir 8 € per mėnesį, t. y. apie 13,40 € už iškabą per mėnesį per penkerius metus. <b>Baltijos šalyse šviečiančių iškabų dar niekas nestebi.</b> Artimiausias vietinis žaidėjas – impressBox (Vilnius) – stebi tik skaitmeninius ekranus. Paruošti sertifikuoti įrenginiai ir pigus mobilusis ryšys leidžia pilotinį projektą įgyvendinti maždaug už 10 tūkst. €. Vien Lietuvos rinka nedidelė, todėl ilgalaikis verslas – visos Baltijos šalys.</p>
+    <p style="margin:0">Modelis veikia kitur: Vokietijoje <b>Lichtwart</b> parduoda būtent tokį sprendimą per iškabų gamintojus – 399 € už įrangą ir 8 € per mėnesį, t. y. apie 13,40 € už iškabą per mėnesį per penkerius metus. <b>Neradome nė vienos įmonės Baltijos šalyse, kuri jau parduotų statinių šviečiančių iškabų stebėseną.</b> Artimiausias vietinis žaidėjas – impressBox (Vilnius) – stebi skaitmeninius ekranus ir bando LED gedimų aptikimą pagal suvartojamą galią (beta versija), t. y. tą patį metodą, kurį naudotume mes. Paruošti sertifikuoti įrenginiai ir pigus mobilusis ryšys leidžia pilotinį projektą įgyvendinti maždaug už 10 tūkst. €. Vien Lietuvos rinka nedidelė, todėl ilgalaikis verslas – visos Baltijos šalys.</p>
   </div>
   <table>
     <tr><th style="width:22%">Tema</th><th>Išvada</th></tr>
     <tr><td><b>Įrenginiai</b></td><td>Paruoštų įrenginių yra. „Wi-Fi“ išmaniosios relės kainuoja apie 15 €, LoRaWAN įrenginiai – apie 60–150 € ir dar reikia tinklų sietuvo (angl. <i>gateway</i>), o įrenginiai su savo mobiliuoju ryšiu – apie 80–210 €. Patikimiausias būdas aptikti gedimą – matuoti iškabos galią į grandinę įjungtu skaitikliu; taip aptinkami ir daliniai gedimai. Daugelis uždedamų srovės replių nepajėgia išmatuoti mažos LED iškabos srovės (mažiau nei 1–2 A). Skaitiklis, prijungtas po iškabos laikmačio, negali atskirti „išjungta pagal grafiką“ nuo „sugedo“, todėl įrenginys turi tai išspręsti.</td></tr>
-    <tr><td><b>Ryšys</b></td><td>Geriausias pasirinkimas – LTE-M. Bitė teigia, kad jos tinklas dengia visą šalį; LTE-M siūlo ir Telia, ir Bitė. 2G tinka tik kaip atsarginis variantas (jį planuojama išjungti apie 2028 m.), o 3G jau išjungtas. Kelių operatorių daiktų interneto (IoT) SIM kortelės kainuoja nuo 12 € už 10 metų (1NCE). Telia, Bitė ir Tele2 siūlo nemokamas bandomąsias SIM korteles.</td></tr>
-    <tr><td><b>Teisinis reguliavimas</b></td><td>Įrenginį prie jau ant pastato sumontuotos iškabos gali jungti tik įmonė, turinti VERT elektros įrenginių įrengimo atestatą ir atestuotus darbuotojus. Montavimas dirbtuvėse greičiausiai laikomas gaminio surinkimu – tai reikia patvirtinti su VERT. Iškabos jungiamos per 30 mA nuotėkio srovės išjungiklį, todėl įrenginiai neturi jo suveikdinti. Sukurti savo įrenginį ir jį sertifikuoti kainuotų apie 12–40 tūkst. € ir užtruktų 6–16 savaičių, todėl pilotiniame projekte naudojami <b>jau sertifikuoti įrenginiai su originaliu gamintojo prekės ženklu</b>. Paslėptas įrenginys reklamos leidimams įtakos neturi; matoma dėžutė gali turėti, ypač paveldo zonose.</td></tr>
-    <tr><td><b>Rinka</b></td><td>Daugiausia iškabų turi degalinės ir vaistinės, toliau – maisto prekių tinklai (Maxima, Iki, Rimi, Lidl, Norfa), ryšio operatorių salonai, bankai ir greitojo maisto restoranai. Jei kiekviena Lietuvos iškaba būtų prenumeruojama už 5 € per mėnesį, pajamos siektų apie 0,5 mln. € per metus. Realiai pasiekiama dalis mažesnė, todėl svarbios Baltijos šalys.</td></tr>
+    <tr><td><b>Ryšys</b></td><td>Naudoti įrenginį su <b>LTE-M</b>, o NB-IoT ir 2G – kaip atsarginius variantus. Lietuvoje:
+      <ul>
+        <li><b>Telia:</b> NB-IoT nuo 2019–2020 m., LTE-M – 900 MHz dažnių juostoje, atlaisvintoje išjungus 3G (2022 m. gruodį). Be to, jos tinklas apskritai stipriausias (pagal RRT, 5G pasiekia 99,7 % namų ūkių), 2G išliks bent iki 2030 m. Telia siūlo nemokamą 1 mėnesio IoT bandymą ir IoT valdymo platformą bei jau kuria stebėsenos sprendimus su partneriais. Todėl Telia – labiausiai tikėtinas ryšio ir pardavimų partneris. LTE-M aprėpties skaičiaus Telia neskelbia.</li>
+        <li><b>Bitė:</b> vienintelė viešai teigia, kad LTE-M dengia visą Lietuvą (nuo 2023 m. vasario). Parduoda NB-IoT ir siūlo 6 mėnesių bandomąjį 10 NB-IoT SIM kortelių paketą.</li>
+        <li><b>Tele2:</b> viešai LTE-M ar NB-IoT Lietuvoje nepaleido, bet Tele2 IoT (Švedija) savo tinkle nurodo abu ir siūlo 2 mėnesių bandomąjį rinkinį.</li>
+      </ul>
+      3G išjungtas (Telia 2022 m. gruodį, Tele2 2025 m. kovą, Bitė 2025 m. gruodį). 4G dengia 97,9 % teritorijos (RRT). IoT kainų operatoriai neskelbia; perpardavėjų planai kainuoja apie 1,6–2,5 € per mėnesį be PVM. 1NCE parduoda 10 metų IoT SIM už 12 € (500 MB); Lietuvoje ji veikia LTE-M, bet ne NB-IoT tinkle. Telia ir Bitė ryšį verta išbandyti realiose iškabų vietose.</td></tr>
+    <tr><td><b>Teisinis reguliavimas</b></td><td>Įrenginio prijungimas prie jau ant pastato sumontuotos iškabos – tai elektros įrenginių iki 1000 V įrengimo darbai. Jiems reikia VERT įrengimo atestato, kurį gali turėti įmonė arba fizinis asmuo (elektrikas), ir atestuotų darbuotojų (Energetikos įstatymo 22 str.; VERT nutarimas O3E-1388). Montavimas dirbtuvėse greičiausiai laikomas gaminio surinkimu – tai reikia patvirtinti su VERT; pagamintą iškabą vietoje vis tiek turi prijungti atestuotas įrengėjas. Lauko šviečianti reklama TN maitinimo sistemose turi būti apsaugota 30 mA nuotėkio srovės išjungikliu (Apšvietimo įrenginių įrengimo taisyklių 50 p.), o normali nuotėkio srovė turi neviršyti maždaug 10 mA, tad svarbus ir paties įrenginio nuotėkis. Savo įrenginio sertifikavimas įvertintas apie 12–40 tūkst. € (vien kibernetinio saugumo bandymai, pagal Europos Komisijos tyrimą, kainuoja 5–50 tūkst. € ir daugiau), todėl pilotiniame projekte naudojami <b>jau sertifikuoti įrenginiai su originaliu gamintojo prekės ženklu</b>. Uždėjus savo prekės ženklą, taptume teisiniu gamintoju (RED 13 str.). Lauko reklamai vis tiek reikia savivaldybės leidimo (Reklamos įstatymo 12 str.). Paslėptų vidinių dalių jokia taisyklė nereglamentuoja; matoma dėžutė gali neatitikti patvirtinto projekto, ypač paveldo zonose.</td></tr>
+    <tr><td><b>Rinka</b></td><td>Daugiausia iškabų turi degalinės ir vaistinės, toliau – maisto prekių tinklai (Maxima, Iki, Rimi, Lidl, Norfa), ryšio operatorių salonai, bankai ir greitojo maisto restoranai. Jei kiekviena Lietuvos iškaba būtų prenumeruojama už 5 € per mėnesį, pajamos siektų apie 0,5 mln. € per metus. Realiai pasiekiama dalis mažesnė, todėl svarbios Baltijos šalys. Parduotuvių skaičiai patikrinti 2026 m. spalį: Maxima 241, Iki 245+, Rimi 87, Lidl 87, Norfa 159; Camelia ~350, Eurovaistinė 260+, Gintarinė 250+, BENU 80+ (iš viso 1 227 vaistinės); Viada 133, Circle K 99, Neste 85, Orlen 30. Įvertis gali dalį iškabų skaičiuoti dukart, kai vaistinės ar ryšio salonai yra prekybos centruose ar maisto prekių parduotuvėse.</td></tr>
   </table>
 
   <div class="card" style="margin-top:14px">
@@ -366,23 +396,36 @@
     <div class="grid" style="margin-bottom:12px">
       <div class="stat"><b>Neskelbiamos</b><span>pajamos: kaip maža Vokietijos GmbH, ji neprivalo skelbti pelno (nuostolių) ataskaitos, ir jokie šaltiniai šio skaičiaus neatskleidžia</span></div>
       <div class="stat"><b>~1 mln. €</b><span>ankstyvosios stadijos (angl. <i>pre-seed</i>) investicijos, 2024 m. rugsėjis (BitStone Capital, Vireo Ventures, better ventures)</span></div>
-      <div class="stat"><b>15–16</b><span>darbuotojų (LinkedIn, gritt.io)</span></div>
+      <div class="stat"><b>~15</b><span>darbuotojų (gritt.io – 15, LinkedIn – 16, Dealroom – „11–50“)</span></div>
       <div class="stat"><b>4–7 mln. $</b><span>įmonės vertė: Dealroom įvertis, ne oficialus skaičius</span></div>
     </div>
     <ul>
       <li><b>Įmonė:</b> LichtWART GmbH, Herfordas. 2020 m. įkūrė Gregor Giataganas ir Johannes Mailänder; 2024 m. prisijungė Jackson Bond (relayr bendraįkūrėjas). Parduoda kartu su Deutsche Telekom, kurios IoT debesija ir SIM kortelėmis veikia produktas.</li>
-      <li><b>Svetainėje nurodyti klientai:</b> Hoyer (300+ degalinių, pirmasis klientas), VARTA, HanseMerkur, OKTAN, MHB Mobility, LOTHER Gruppe. Daugiausia degalinės, automobilių salonai ir prekyba.</li>
+      <li><b>Svetainėje nurodyti klientai:</b> Hoyer (valdo 300+ degalinių; vienas pirmųjų klientų, diegia palaipsniui), VARTA, HanseMerkur, OKTAN, MHB Mobility, LOTHER Gruppe. Ströer „Blowup“ reklaminiai stendai su Lichtwart sumažino elektros sąnaudas 52 % (2026 m. vasaris). Pati Lichtwart nurodo 250+ modulių ir 35+ operatorius visoje Europoje, tad įmonė dar nedidelė.</li>
+      <li><b>Kaina:</b> 399 € už įrangą + 8 € per mėnesį už debesiją + 24 € už SIM 60 mėnesių; skelbiama puslapyje iškabų gamintojams (wetec.lichtwart.io). Ankstesni DALI moduliai, pasak „Süddeutsche Zeitung“ (2023 m.), kainavo 700–1 600 € už vienetą.</li>
       <li><b>Ką siūlo be įspėjimų apie gedimus:</b> nuotolinį pritemdymą ir laikmačius („iki 60 % mažesnės elektros išlaidos“), mažesnę šviesos taršą, padedančią gauti statybos leidimus pagal Vokietijos taršos kontrolės įstatymą, duomenis ESG ataskaitoms ir kitos įrangos stebėseną, pvz., automobilių plovyklų nuotėkių.</li>
       <li><b>Pardavimo kanalas:</b> modulį montuoja iškabų gamintojai, jie gauna prieigą administravimui ir sąskaitoms. Esamoms iškaboms reikia su DALI suderinamų LED maitinimo šaltinių.</li>
       <li><b>Ką tai reiškia mums (iliustracija):</b> esant ~13,40 € už iškabą per mėnesį, 1 mln. € metinių pasikartojančių pajamų reikia apie 6 200 iškabų – beveik visos Lietuvos tinklų iškabų rinkos. Elektros taupymas ir pagalba gaunant leidimus gali būti stipresni argumentai nei vien įspėjimai apie gedimus.</li>
     </ul>
-    <p class="note" style="margin-bottom:0">Šaltiniai: lichtwart.io; Lichtwart pranešimas spaudai apie investicijas (2024 m. rugsėjis); Founders Foundation; Vokietijos įmonių registras HRB 16999 (Bad Oeynhauseno apylinkės teismas), per North Data; Dealroom; gritt.io; LinkedIn. Tikrinta 2026 m. spalio 9 d.</p>
+    <p class="note" style="margin-bottom:0">Šaltiniai: lichtwart.io; wetec.lichtwart.io; case-study.lichtwart.io; Lichtwart pranešimas spaudai apie investicijas (2024 m. rugsėjis); Founders Foundation; Vokietijos įmonių registras HRB 16999 (Bad Oeynhauseno apylinkės teismas), per North Data; Dealroom; gritt.io; LinkedIn; invidis (2026 m. vasaris); „Süddeutsche Zeitung“. Tikrinta 2026 m. spalio 9 d.</p>
+  </div>
+
+  <div class="card">
+    <h3>Kiti žaidėjai, kuriuos verta žinoti</h3>
+    <ul>
+      <li><b>impressBox</b> (UAB „Dėžutė“, Vilnius): valdo 5 000+ skaitmeninių ekranų Baltijos šalyse, 15–19 € už ekraną per mėnesį; klientai – Benu, IKI, Narvesen, Drogas, Medicija ir kt. Bando LED gedimų aptikimą pagal suvartojamą galią (beta versija) – artimiausia vietinė grėsmė ir galimas partneris.</li>
+      <li><b>Telia, Bitė, Tele2:</b> parduoda IoT ryšį ir valdymo platformas, bet ne iškabų stebėseną. Telia kuria stebėsenos sprendimus su partneriais ir reklamuoja energijos stebėseną prekybos tinklams, tad gali tapti partneriu arba konkurentu.</li>
+      <li><b>Civinity:</b> vykdo nuotolinį pastatų valdymą Rimi (Lietuvoje ir Latvijoje) ir Neste Lietuva. Galėtų įtraukti ir iškabas – galimas partneris arba konkurentas.</li>
+      <li><b>Teltonika</b> (Vilnius): įrenginiai, kuriais galime remtis, o ne konkuruojantis produktas.</li>
+      <li><b>Gatvių apšvietimo valdymas:</b> Lucidus/Citylight ir Lusety (Lietuva), MAUGLO (Latvija), Elero (Estija). Panaši technologija, kita rinka.</li>
+      <li><b>Kitur Europoje:</b> Lumosoft/Lumosigns (Nyderlandai ir JK, veikia nuo 2025 m. balandžio), Neopaul (Belgija, šviečiančių iškabų nuotolinė stebėsena), Pharmédias (Prancūzija, išmanieji vaistinių kryžiai). Už Europos ribų: Outdoorlink (JAV, įspėjimai apie reklaminių stendų apšvietimą).</li>
+    </ul>
   </div>
 </section>
 
 <section id="lt-devices">
   <h2>Įrenginių kainos <span class="pill p-wait">Įvertis</span></h2>
-  <p class="muted">Paties stebėsenos įrenginio kaina, be montavimo. Mažmeninės kainos, rastos internete; perkant kiekius kainos bus mažesnės. Dažniausiai be PVM; svarų ir dolerių kainos perskaičiuotos apytiksliai.</p>
+  <p class="muted">Paties stebėsenos įrenginio kaina, be montavimo. Mažmeninės kainos, rastos internete ir patikrintos 2026 m. spalį; perkant kiekius kainos bus mažesnės. <b>Be PVM, jei nenurodyta kitaip</b> (Lietuvoje pridėti 21 %); svarų ir dolerių kainos perskaičiuotos apytiksliai.</p>
 
   <div class="card verdict">
     <h3>Sprendimas: įrenginys turi savo mobilųjį ryšį</h3>
@@ -391,8 +434,8 @@
 
   <div class="grid">
     <div class="stat"><b>~15 €</b><span>„Wi-Fi“ relė su galios matavimu (Shelly): tik išimtis, reikia parduotuvės „Wi-Fi“</span></div>
-    <div class="stat"><b>~150–165 €</b><span>pilnas mobiliojo ryšio komplektas: Teltonika TRB145 + Eastron SDM120 + SIM</span></div>
-    <div class="stat"><b>~90–140 €</b><span>mobilusis ryšys, baterija, be laidų pjaustymo: Dragino CS01-CB + replės + SIM</span></div>
+    <div class="stat"><b>~145–175 €</b><span>pilnas LTE-M/NB-IoT komplektas: Teltonika TRB256 (arba TRB255) + Eastron SDM120 + SIM</span></div>
+    <div class="stat"><b>~105–155 €</b><span>LTE-M/NB-IoT, baterija, be laidų pjaustymo: Dragino CS01-CB + replės + SIM</span></div>
     <div class="stat"><b>399 €</b><span>Lichtwart ECO, plius 8 €/mėn. ir 24 € SIM (~900 € per 5 metus)</span></div>
   </div>
 
@@ -400,34 +443,39 @@
     <tr><th>Įrenginys</th><th>Gamintojas, šalis</th><th style="width:16%">Kaina už vnt.</th><th>Pastabos</th></tr>
     <tr><td><b>Shelly 1PM Gen3</b> / 1PM Mini Gen3</td><td>Shelly, Bulgarija</td><td>~15 € (su PVM)</td><td>„Wi-Fi“ relė su galios matavimu; gali pakeisti iškabos laikmatį</td></tr>
     <tr><td><b>Shelly Pro 1PM</b> (DIN bėgis)</td><td>Shelly, Bulgarija</td><td>~76 € (su PVM)</td><td>„Wi-Fi“ + laidinis tinklas (LAN), 5 m. garantija</td></tr>
-    <tr><td><b>Teltonika TRB140 / TRB145 / TRB245</b></td><td>Teltonika, <b>Lietuva</b></td><td>~105–180 €</td><td>LTE modemas, nuskaitantis skaitiklį; vietinis tiekėjas</td></tr>
-    <tr><td><b>Eastron SDM120</b> (skaitiklis)</td><td>Eastron, Kinija</td><td>~33–41 €</td><td>Elektros skaitiklis ant DIN bėgio, naudojamas su Teltonika</td></tr>
-    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, Kinija</td><td>~89 €</td><td>Skaitiklis su įmontuotu LoRaWAN</td></tr>
-    <tr><td><b>Dragino CS01-CB / CS01-NB</b></td><td>Dragino, Kinija</td><td>~76–125 € + replės</td><td>NB-IoT/LTE-M srovės jutiklis su baterija</td></tr>
-    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, Kinija</td><td>~63–96 € + replės</td><td>LoRaWAN versija</td></tr>
-    <tr><td><b>Milesight CT101</b></td><td>Milesight, Kinija</td><td>~100–105 €</td><td>LoRaWAN srovės replės; neveikia esant srovei iki 1,5 A</td></tr>
-    <tr><td><b>Milesight WS558</b></td><td>Milesight, Kinija</td><td>~122–148 €</td><td>LoRaWAN šviesos valdiklis, 8 išėjimai</td></tr>
-    <tr><td><b>Milesight UC300</b></td><td>Milesight, Kinija</td><td>~190–210 €</td><td>LTE valdiklis ant DIN bėgio</td></tr>
-    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, Kinija</td><td>~185–219 €</td><td>Šviesos jutiklis, tik papildomam patikrinimui</td></tr>
-    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taivanas</td><td>~119–179 €</td><td>LoRaWAN srovės jutiklis, baterija</td></tr>
-    <tr><td><b>Elsys ELT Lite / ERS2</b></td><td>Elsys, Švedija</td><td>~72–86 €</td><td>Universalūs LoRaWAN jutikliai</td></tr>
-    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Vokietija</td><td>399 € + 8 €/mėn. + 24 € SIM</td><td>Pilnas sprendimas iškaboms (įrenginys + debesija)</td></tr>
+    <tr><td><b>Teltonika TRB256 / TRB255</b></td><td>Teltonika, <b>Lietuva</b></td><td>~98–120 €</td><td><b>LTE-M/NB-IoT</b> tinklų sietuvas su RS485, nuskaito skaitiklį; vietinis tiekėjas. Geriausiai atitinka mūsų sprendimą.</td></tr>
+    <tr><td><b>Teltonika TRB145</b></td><td>Teltonika, Lietuva</td><td>~95–122 €</td><td>LTE Cat 1 su RS485, <b>be LTE-M/NB-IoT</b></td></tr>
+    <tr><td><b>Teltonika TRB140 / TRB245</b></td><td>Teltonika, Lietuva</td><td>~105–160 €</td><td>LTE Cat 4, be LTE-M/NB-IoT; TRB140 neturi RS485</td></tr>
+    <tr><td><b>Eastron SDM120</b> („Modbus“, MID)</td><td>Eastron, Kinija</td><td>~33–40 €</td><td>Elektros skaitiklis ant DIN bėgio, jį nuskaito Teltonika</td></tr>
+    <tr><td><b>Eastron SDM230-LoRa</b></td><td>Eastron, Kinija</td><td>~89–154 €</td><td>Skaitiklis su įmontuotu LoRaWAN</td></tr>
+    <tr><td><b>Dragino CS01-CB</b></td><td>Dragino, Kinija</td><td>~81–120 € + replės</td><td>NB-IoT + LTE-M srovės jutiklis, 8 500 mAh baterija</td></tr>
+    <tr><td><b>Dragino CS01-NB</b></td><td>Dragino, Kinija</td><td>~81–90 € + replės</td><td>Tik NB-IoT</td></tr>
+    <tr><td><b>Dragino CS01-LB</b></td><td>Dragino, Kinija</td><td>~63–75 € + replės</td><td>LoRaWAN versija</td></tr>
+    <tr><td><b>Hardwario CHESTER Current</b></td><td>Hardwario, Čekija</td><td>Pagal užklausą</td><td>LTE-M/NB-IoT/LoRaWAN, iki 4 srovės replių, IP67</td></tr>
+    <tr><td><b>ACRIOS S0 → NB-IoT keitiklis</b></td><td>ACRIOS, Čekija</td><td>nuo ~40 €</td><td>Per NB-IoT perduoda skaitiklio (pvz., SDM120) impulsus</td></tr>
+    <tr><td><b>Milesight CT101</b></td><td>Milesight, Kinija</td><td>~73–89 €</td><td>LoRaWAN srovės replės; maitinamos iš matuojamos srovės joms reikia ~1,5 A, o 100 W LED iškaba naudoja ~0,4 A, todėl <b>daugumai iškabų netinka</b></td></tr>
+    <tr><td><b>Milesight WS558</b></td><td>Milesight, Kinija</td><td>~122–142 €</td><td>LoRaWAN šviesos valdiklis, 8 išėjimai</td></tr>
+    <tr><td><b>Milesight UC300</b></td><td>Milesight, Kinija</td><td>~189–210 €</td><td>LTE Cat 1 valdiklis (yra ir LoRaWAN versija); reikia išorinio skaitiklio</td></tr>
+    <tr><td><b>Milesight EM500-LGT</b></td><td>Milesight, Kinija</td><td>~189–212 €</td><td>Šviesos jutiklis, tik papildomam patikrinimui</td></tr>
+    <tr><td><b>Netvox R718N17 / R718N1</b></td><td>Netvox, Taivanas</td><td>~120–220 €</td><td>LoRaWAN srovės jutiklis, baterija neįskaičiuota</td></tr>
+    <tr><td><b>Elsys ELT Lite</b></td><td>Elsys, Švedija</td><td>~88 €</td><td>Universalus LoRaWAN jutiklių įėjimas</td></tr>
+    <tr><td><b>Lichtwart ECO</b></td><td>Lichtwart, Vokietija</td><td>399 € + 8 €/mėn. + 24 € SIM</td><td>Pilnas sprendimas iškaboms (įrenginys + debesija), LTE-M/NB-IoT</td></tr>
   </table>
 
   <div class="grid" style="margin-top:14px">
     <div class="card" style="margin:0"><h3>Papildomos išlaidos</h3><ul>
-      <li><b>SIM:</b> ~12 € vienkartinai 10 metų (1NCE) arba ~1,6–3 €/mėn. per operatorius</li>
+      <li><b>SIM:</b> ~13 € vienkartinai 10 metų (1NCE: 12 € planas + 1 € SIM, iš viso 500 MB, tad duomenų reikia siųsti mažai) arba ~1,6–2,5 €/mėn. pagal operatorių planus per perpardavėjus</li>
       <li><b>LoRaWAN tinklų sietuvas</b> (angl. <i>gateway</i>): ~115–245 € kiekvienai vietai (Lietuvoje nėra nacionalinio LoRaWAN tinklo)</li>
-      <li><b>Srovės replės</b> Dragino įrenginiams: kainą reikia pasitikslinti</li>
+      <li><b>Srovės replės</b> Dragino įrenginiams: apie 10–20 €, kainą reikia pasitikslinti</li>
     </ul></div>
     <div class="card" style="margin:0"><h3>Savas įrenginys (apytikslis įvertis)</h3><ul>
-      <li><b>Komponentai, gaminant 1 000 vnt.:</b> ~25–45 € (LTE-M modulis 8–15 €, matavimo mikroschema, relė, maitinimo šaltinis, plokštė, korpusas, surinkimas) + ~13 € SIM</li>
-      <li><b>Gaminant ~100 vnt.:</b> ~50–80 € už vienetą</li>
-      <li><b>Vienkartinės išlaidos:</b> ~15–40 tūkst. € kūrimui + ~12–40 tūkst. € ES sertifikavimui</li>
+      <li><b>Komponentai, gaminant 1 000 vnt.:</b> ~35–60 € (LTE-M modulis, pvz., Quectel BG95 ar Nordic nRF9151, 12–22 €, matavimo mikroschema, relė, maitinimo šaltinis, plokštė, korpusas, surinkimas) + ~13 € SIM</li>
+      <li><b>Gaminant ~100 vnt.:</b> ~60–90 € už vienetą</li>
+      <li><b>Vienkartinės išlaidos:</b> ~15–40 tūkst. € kūrimui + ~12–40 tūkst. € ES sertifikavimui ir operatorių patvirtinimui</li>
       <li><b>Atsiperka</b> tik nuo kelių tūkstančių vienetų, t. y. tik plečiantis į Baltijos šalis</li>
     </ul></div>
   </div>
-  <p class="note">Pilotiniam projektui: išbandyti du mobiliojo ryšio variantus – Teltonika + Eastron (patikimas, maitinamas iš tinklo) ir Dragino (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Shelly – pasirinktinai, tik vietoms su „Wi-Fi“. Įrenginiui vienai iškabai numatyti apie 90–165 €. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
+  <p class="note">Pilotiniam projektui: išbandyti du LTE-M/NB-IoT variantus – Teltonika TRB256 + Eastron SDM120 (patikimas, maitinamas iš tinklo) ir Dragino CS01-CB (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Shelly – pasirinktinai, tik vietoms su „Wi-Fi“. Įrenginiui vienai iškabai numatyti apie 105–175 € be PVM. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
 </section>
 
 <section id="lt-tasks">
@@ -458,7 +506,7 @@
     <p class="note" style="margin-top:0">Kas: iškabų gamintojo dirbtuvės kartu su projekto iniciatoriumi. Biudžetas apie 300–400 €. Tai lemia, kuris įrenginys bus naudojamas pilotiniame projekte.</p>
     <div class="progress"><div></div></div>
     <div class="checklist" data-group="bench">
-      <label><input type="checkbox"><span>Įsigyti mobiliojo ryšio kandidatus: <b>Teltonika TRB145 + Eastron SDM120M</b> ir <b>Dragino CS01-CB</b> su mažomis srovės replėmis, taip pat 1NCE SIM korteles. Pasirinktinai – <b>Shelly 1PM Gen3</b> (~15 €) vietoms su „Wi-Fi“ ir šviesos jutiklį.</span></label>
+      <label><input type="checkbox"><span>Įsigyti LTE-M/NB-IoT kandidatus: <b>Teltonika TRB256 + Eastron SDM120M</b> ir <b>Dragino CS01-CB</b> su mažomis srovės replėmis, taip pat 1NCE ir Telia/Bitė bandomąsias SIM korteles. Pasirinktinai – <b>Shelly 1PM Gen3</b> (~15 €) vietoms su „Wi-Fi“ ir šviesos jutiklį.</span></label>
       <label><input type="checkbox"><span>Kiekvieną sumontuoti tipinėje iškaboje dirbtuvėse.</span></label>
       <label><input type="checkbox"><span>Patikrinti tikslumą esant mažoms apkrovoms: realios 20, 50, 100 ir 300 W LED apkrovos.</span></label>
       <label><input type="checkbox"><span>Imituoti gedimus: visiškas maitinimo dingimas, atjungtas vienas LED modulis, maitinimo šaltinio gedimas, tinklo įtampos dingimas. Užfiksuoti, ką ir kaip greitai praneša kiekvienas įrenginys.</span></label>
@@ -493,7 +541,7 @@
   <h2>Biudžetas ir terminai <span class="pill p-wait">Siūloma</span></h2>
   <table>
     <tr><th style="width:30%">Etapas</th><th style="width:20%">Kada</th><th>Kas</th><th style="width:16%">Numatoma kaina</th></tr>
-    <tr><td><b>Faktai ir bandymas dirbtuvėse</b></td><td>1–2 savaitės</td><td>Aukščiau nurodytos 1 ir 2 užduotys. Užsisakyti nemokamas operatorių bandomąsias SIM korteles (Telia, Bitė, Tele2).</td><td>300–400 €</td></tr>
+    <tr><td><b>Faktai ir bandymas dirbtuvėse</b></td><td>1–2 savaitės</td><td>Aukščiau nurodytos 1 ir 2 užduotys. Užsisakyti operatorių bandomąsias SIM korteles: Telia (nemokamas 1 mėnesio IoT bandymas), Bitė (6 mėnesių 10 NB-IoT SIM paketas), Tele2 IoT (2 mėnesių rinkinys).</td><td>300–400 €</td></tr>
     <tr><td><b>Sprendimai</b></td><td>3–5 savaitės</td><td>1–6 sprendimai. Prieš pilotinį projektą raštu susitarti dėl partnerystės sąlygų.</td><td>0 €</td></tr>
     <tr><td><b>Pilotinio projekto parengimas</b></td><td>6–8 savaitės</td><td>20–50 įrenginių, SIM kortelės, pirmoji stebėsenos platformos versija, montavimas kliento iškabose.</td><td>1,5–5 tūkst. €</td></tr>
     <tr><td><b>Pilotinio projekto vykdymas</b></td><td>3–4 mėnesiai</td><td>Stebėsena realiu laiku. Matuojama: aptikti gedimai, remonto laikas, išvengtos tuščios išvykos ir klaidingi įspėjimai.</td><td>0,5–1 tūkst. €</td></tr>
@@ -508,7 +556,7 @@
     <div class="card"><h3>Pasirengimas mokėti</h3><p class="muted" style="margin:0">Vienoje parduotuvėje užgesusi iškaba kainuoja nedaug. Verslo pagrindas – priežiūros sutartys ir prekės ženklo įvaizdis daugelyje vietų. Tai turi įrodyti pilotinis projektas.</p></div>
     <div class="card"><h3>Maža vietinė rinka</h3><p class="muted" style="margin:0">Vien Lietuva – daugiausia apie 0,5 mln. € per metus. Tikram mastui reikia Latvijos ir Estijos, galbūt Lenkijos.</p></div>
     <div class="card"><h3>Klaidingi įspėjimai</h3><p class="muted" style="margin:0">Laikmačiai, elektros dingimai ir iš dalies sugedę LED turi būti atskiriami nuo tikrų gedimų, kitaip klientai ims ignoruoti įspėjimus.</p></div>
-    <div class="card"><h3>Konkurencija</h3><p class="muted" style="margin:0">Lichtwart gali ateiti į Baltijos šalis. impressBox jau parduoda ekranų stebėseną tiems patiems prekybos tinklams. Svarbu judėti anksti.</p></div>
+    <div class="card"><h3>Konkurencija</h3><p class="muted" style="margin:0">Lichtwart gali ateiti į Baltijos šalis. impressBox jau parduoda ekranų stebėseną tiems patiems prekybos tinklams ir bando LED gedimų aptikimą. Telia ar Civinity galėtų prie savo paslaugų pridėti iškabų stebėseną. Svarbu judėti anksti.</p></div>
   </div>
 </section>
 
