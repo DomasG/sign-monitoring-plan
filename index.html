@@ -59,6 +59,17 @@
   .toolbar { display: flex; gap: 10px; margin-top: 14px; }
   button { font: inherit; border: 1px solid #c9d3de; background: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
   button:hover { border-color: var(--accent); color: var(--accent); }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+  .presets button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .calc-grid { display: grid; gap: 12px 22px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-bottom: 16px; }
+  .calc-grid label { display: block; font-size: 13px; font-weight: 600; }
+  .calc-grid label small { display: block; font-weight: 400; color: var(--muted); }
+  .calc-grid .field { display: flex; gap: 10px; align-items: center; margin-top: 4px; }
+  .calc-grid input[type=range] { flex: 1; }
+  .calc-grid input[type=number] { width: 92px; font: inherit; padding: 4px 6px; border: 1px solid #c9d3de; border-radius: 6px; }
+  .calc .stat b { font-size: 21px; }
+  .calc tr.current td { background: #eef5ff; font-weight: 600; }
+  .calc .neg { color: var(--bad) !important; }
   @media print {
     nav, .toolbar, .lang-switch { display: none; }
     body { background: #fff; }
@@ -94,6 +105,7 @@
     <a href="#en-idea">The idea</a>
     <a href="#en-findings">What we found</a>
     <a href="#en-devices">Device costs</a>
+    <a href="#en-earnings">Earnings calculator</a>
     <a href="#en-tasks">Tasks now</a>
     <a href="#en-decisions">Decisions ahead</a>
     <a href="#en-budget">Budget &amp; timeline</a>
@@ -240,6 +252,51 @@
   <p class="note">For the pilot: test the two LTE-M/NB-IoT options, Teltonika TRB256 + Eastron SDM120 (reliable, mains-powered) and Dragino CS01-CB (battery, no cable cutting), with a Lichtwart unit as a benchmark. Shelly is optional, only for sites with Wi-Fi. Expect about €105–175 per sign for the device, excl. VAT. Ask Teltonika directly for volume prices.</p>
 </section>
 
+<section id="en-earnings">
+  <h2>Earnings calculator <span class="pill p-wait">Estimate</span></h2>
+  <p class="muted">Change the numbers to see what different subscription fees could earn. Defaults come from the research above, all excl. VAT. This is a planning tool, not a forecast: the pilot will tell us what clients actually pay.</p>
+  <div class="card calc" data-locale="en-GB" data-never="never" data-now="right away" data-months="months" data-signs-word="signs">
+    <div class="presets">
+      <b style="font-size:13px">Scenario:</b>
+      <button data-signs="50">Pilot (50 signs)</button>
+      <button data-signs="500">Sign maker's clients (500)</button>
+      <button data-signs="810">10% of Lithuania (~810)</button>
+      <button data-signs="2430">30% of Lithuania (~2,430)</button>
+      <button data-signs="3400">20% of the Baltics (~3,400)</button>
+    </div>
+    <div class="calc-grid">
+      <div><label>Signs subscribed<small>Lithuania ~8,100 in total, Baltics ~17,000</small></label><div class="field"><input type="range" data-k="signs" min="10" max="17000" step="10"><input type="number" data-k="signs" min="0" step="10"></div></div>
+      <div><label>Subscription fee per sign per month (€)<small>Research tested €3 / €5 / €8; Lichtwart is ~€13.40 including hardware</small></label><div class="field"><input type="range" data-k="fee" min="1" max="25" step="0.5"><input type="number" data-k="fee" min="0" step="0.5"></div></div>
+      <div><label>Our share of the profit (%)<small>50 = a 50:50 split with the sign maker</small></label><div class="field"><input type="range" data-k="share" min="0" max="100" step="5"><input type="number" data-k="share" min="0" max="100" step="5"></div></div>
+      <div><label>Contract length (years)<small>How long a sign stays subscribed</small></label><div class="field"><input type="range" data-k="years" min="1" max="10" step="1"><input type="number" data-k="years" min="1" step="1"></div></div>
+      <div><label>Device price charged per sign (€, one-off)<small>Set to 0 if the device is included in the subscription</small></label><div class="field"><input type="range" data-k="devPrice" min="0" max="500" step="5"><input type="number" data-k="devPrice" min="0" step="5"></div></div>
+      <div><label>Device cost per sign (€, one-off)<small>Teltonika TRB256 + Eastron + SIM ≈ €145–175</small></label><div class="field"><input type="range" data-k="devCost" min="0" max="400" step="5"><input type="number" data-k="devCost" min="0" step="5"></div></div>
+      <div><label>Mobile connectivity per sign per month (€)<small>€0.10 with a 10-year IoT SIM, ~€1.6–2.5 on operator plans</small></label><div class="field"><input type="range" data-k="conn" min="0" max="3" step="0.05"><input type="number" data-k="conn" min="0" step="0.05"></div></div>
+      <div><label>Platform cost per sign per month (€)<small>Cloud hosting, SMS and email alerts</small></label><div class="field"><input type="range" data-k="plat" min="0" max="2" step="0.05"><input type="number" data-k="plat" min="0" step="0.05"></div></div>
+      <div><label>Fixed running costs per month (€)<small>Servers, support, software updates, accounting</small></label><div class="field"><input type="range" data-k="fixed" min="0" max="3000" step="50"><input type="number" data-k="fixed" min="0" step="50"></div></div>
+      <div><label>One-off setup costs (€)<small>Platform build and pilot, paid by us</small></label><div class="field"><input type="range" data-k="setup" min="0" max="50000" step="500"><input type="number" data-k="setup" min="0" step="500"></div></div>
+    </div>
+    <div class="grid">
+      <div class="stat"><b data-o="mrr"></b><span>subscription revenue per month</span></div>
+      <div class="stat"><b data-o="arr"></b><span>subscription revenue per year</span></div>
+      <div class="stat"><b data-o="profitMonth"></b><span>profit per month after running costs (before the split)</span></div>
+      <div class="stat"><b data-o="ourYear"></b><span>our share per year</span></div>
+      <div class="stat"><b data-o="partnerYear"></b><span>sign maker's share per year</span></div>
+      <div class="stat"><b data-o="deviceMargin"></b><span>one-off device margin (before the split)</span></div>
+      <div class="stat"><b data-o="total"></b><span>our total over the contract, after setup costs</span></div>
+      <div class="stat"><b data-o="breakeven"></b><span>signs needed to cover the fixed running costs</span></div>
+      <div class="stat"><b data-o="payback"></b><span>until our setup costs are paid back</span></div>
+    </div>
+    <h3 style="margin-top:18px">Different fees with the same number of signs</h3>
+    <table>
+      <thead><tr><th>Fee per sign per month</th><th>Revenue per month</th><th>Profit per month</th><th>Our share per year</th><th>Our total over the contract</th></tr></thead>
+      <tbody data-o="table"></tbody>
+    </table>
+    <div class="toolbar"><button data-calc-reset>Reset to defaults</button></div>
+    <p class="note" style="margin-bottom:0">How it works: profit per month = signs × (fee − connectivity − platform cost) − fixed running costs. The one-off device margin is signs × (device price − device cost). Both are split by "our share"; setup costs come out of our share only. Not included: installation (done and charged by the sign maker), repair work (the sign maker's maintenance contracts), taxes, and signs that cancel early.</p>
+  </div>
+</section>
+
 <section id="en-tasks">
   <h2>Tasks now</h2>
   <p class="muted">These two tasks unblock everything else. Ticks are saved in your browser.</p>
@@ -332,6 +389,7 @@
     <a href="#lt-idea">Idėja</a>
     <a href="#lt-findings">Ką išsiaiškinome</a>
     <a href="#lt-devices">Įrenginių kainos</a>
+    <a href="#lt-earnings">Pajamų skaičiuoklė</a>
     <a href="#lt-tasks">Užduotys dabar</a>
     <a href="#lt-decisions">Laukiantys sprendimai</a>
     <a href="#lt-budget">Biudžetas ir terminai</a>
@@ -478,6 +536,51 @@
   <p class="note">Pilotiniam projektui: išbandyti du LTE-M/NB-IoT variantus – Teltonika TRB256 + Eastron SDM120 (patikimas, maitinamas iš tinklo) ir Dragino CS01-CB (baterija, be laidų pjaustymo), o Lichtwart įrenginį paimti palyginimui. Shelly – pasirinktinai, tik vietoms su „Wi-Fi“. Įrenginiui vienai iškabai numatyti apie 105–175 € be PVM. Kiekių kainų verta tiesiogiai paklausti Teltonika.</p>
 </section>
 
+<section id="lt-earnings">
+  <h2>Pajamų skaičiuoklė <span class="pill p-wait">Įvertis</span></h2>
+  <p class="muted">Keiskite skaičius ir pažiūrėkite, kiek būtų galima uždirbti esant skirtingiems prenumeratos mokesčiams. Numatytosios reikšmės paimtos iš tyrimo, visos be PVM. Tai planavimo įrankis, o ne prognozė: kiek klientai iš tikrųjų mokės, parodys pilotinis projektas.</p>
+  <div class="card calc" data-locale="lt-LT" data-never="niekada" data-now="iš karto" data-months="mėn." data-signs-word="iškabų">
+    <div class="presets">
+      <b style="font-size:13px">Scenarijus:</b>
+      <button data-signs="50">Pilotinis projektas (50 iškabų)</button>
+      <button data-signs="500">Iškabų gamintojo klientai (500)</button>
+      <button data-signs="810">10 % Lietuvos (~810)</button>
+      <button data-signs="2430">30 % Lietuvos (~2 430)</button>
+      <button data-signs="3400">20 % Baltijos šalių (~3 400)</button>
+    </div>
+    <div class="calc-grid">
+      <div><label>Prenumeruojamų iškabų skaičius<small>Lietuvoje iš viso ~8 100, Baltijos šalyse ~17 000</small></label><div class="field"><input type="range" data-k="signs" min="10" max="17000" step="10"><input type="number" data-k="signs" min="0" step="10"></div></div>
+      <div><label>Prenumeratos mokestis už iškabą per mėnesį (€)<small>Tyrime vertinta 3 / 5 / 8 €; Lichtwart – ~13,40 € kartu su įranga</small></label><div class="field"><input type="range" data-k="fee" min="1" max="25" step="0.5"><input type="number" data-k="fee" min="0" step="0.5"></div></div>
+      <div><label>Mūsų pelno dalis (%)<small>50 = pelnas dalijamas 50:50 su iškabų gamintoju</small></label><div class="field"><input type="range" data-k="share" min="0" max="100" step="5"><input type="number" data-k="share" min="0" max="100" step="5"></div></div>
+      <div><label>Sutarties trukmė (metai)<small>Kiek laiko iškaba lieka prenumeruojama</small></label><div class="field"><input type="range" data-k="years" min="1" max="10" step="1"><input type="number" data-k="years" min="1" step="1"></div></div>
+      <div><label>Įrenginio kaina klientui už iškabą (€, vienkartinė)<small>0, jei įrenginys įskaičiuotas į prenumeratą</small></label><div class="field"><input type="range" data-k="devPrice" min="0" max="500" step="5"><input type="number" data-k="devPrice" min="0" step="5"></div></div>
+      <div><label>Įrenginio savikaina už iškabą (€, vienkartinė)<small>Teltonika TRB256 + Eastron + SIM ≈ 145–175 €</small></label><div class="field"><input type="range" data-k="devCost" min="0" max="400" step="5"><input type="number" data-k="devCost" min="0" step="5"></div></div>
+      <div><label>Mobilusis ryšys už iškabą per mėnesį (€)<small>0,10 € su 10 metų IoT SIM, ~1,6–2,5 € pagal operatorių planus</small></label><div class="field"><input type="range" data-k="conn" min="0" max="3" step="0.05"><input type="number" data-k="conn" min="0" step="0.05"></div></div>
+      <div><label>Platformos kaina už iškabą per mėnesį (€)<small>Debesijos talpinimas, SMS ir el. pašto įspėjimai</small></label><div class="field"><input type="range" data-k="plat" min="0" max="2" step="0.05"><input type="number" data-k="plat" min="0" step="0.05"></div></div>
+      <div><label>Pastovios veiklos išlaidos per mėnesį (€)<small>Serveriai, palaikymas, programinės įrangos atnaujinimai, buhalterija</small></label><div class="field"><input type="range" data-k="fixed" min="0" max="3000" step="50"><input type="number" data-k="fixed" min="0" step="50"></div></div>
+      <div><label>Vienkartinės pradinės išlaidos (€)<small>Platformos sukūrimas ir pilotinis projektas, mokame mes</small></label><div class="field"><input type="range" data-k="setup" min="0" max="50000" step="500"><input type="number" data-k="setup" min="0" step="500"></div></div>
+    </div>
+    <div class="grid">
+      <div class="stat"><b data-o="mrr"></b><span>prenumeratos pajamos per mėnesį</span></div>
+      <div class="stat"><b data-o="arr"></b><span>prenumeratos pajamos per metus</span></div>
+      <div class="stat"><b data-o="profitMonth"></b><span>pelnas per mėnesį atėmus veiklos išlaidas (prieš dalijimą)</span></div>
+      <div class="stat"><b data-o="ourYear"></b><span>mūsų dalis per metus</span></div>
+      <div class="stat"><b data-o="partnerYear"></b><span>iškabų gamintojo dalis per metus</span></div>
+      <div class="stat"><b data-o="deviceMargin"></b><span>vienkartinis įrenginių antkainis (prieš dalijimą)</span></div>
+      <div class="stat"><b data-o="total"></b><span>mūsų suma per visą sutartį, atėmus pradines išlaidas</span></div>
+      <div class="stat"><b data-o="breakeven"></b><span>tiek iškabų reikia pastovioms veiklos išlaidoms padengti</span></div>
+      <div class="stat"><b data-o="payback"></b><span>per tiek laiko atsipirks mūsų pradinės išlaidos</span></div>
+    </div>
+    <h3 style="margin-top:18px">Skirtingi mokesčiai esant tam pačiam iškabų skaičiui</h3>
+    <table>
+      <thead><tr><th>Mokestis už iškabą per mėnesį</th><th>Pajamos per mėnesį</th><th>Pelnas per mėnesį</th><th>Mūsų dalis per metus</th><th>Mūsų suma per visą sutartį</th></tr></thead>
+      <tbody data-o="table"></tbody>
+    </table>
+    <div class="toolbar"><button data-calc-reset>Atkurti numatytąsias reikšmes</button></div>
+    <p class="note" style="margin-bottom:0">Kaip skaičiuojama: pelnas per mėnesį = iškabų skaičius × (mokestis − ryšys − platformos kaina) − pastovios veiklos išlaidos. Vienkartinis įrenginių antkainis = iškabų skaičius × (įrenginio kaina − savikaina). Abu dalijami pagal „mūsų dalį“; pradinės išlaidos atimamos tik iš mūsų dalies. Neįskaičiuota: montavimas (atlieka ir už jį ima iškabų gamintojas), remontas (iškabų gamintojo priežiūros sutartys), mokesčiai ir anksčiau laiko nutrauktos prenumeratos.</p>
+  </div>
+</section>
+
 <section id="lt-tasks">
   <h2>Užduotys dabar</h2>
   <p class="muted">Šios dvi užduotys atrakina visa kita. Pažymėjimai išsaugomi jūsų naršyklėje.</p>
@@ -607,6 +710,75 @@
     localStorage.setItem(LANG_KEY, lang);
   }
   document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.setLang)));
+
+  const CALC_KEY = "sign-monitoring-plan-calc";
+  const CALC_DEFAULTS = { signs: 500, fee: 8, share: 50, years: 5, devPrice: 200, devCost: 160, conn: 0.5, plat: 0.3, fixed: 300, setup: 10000 };
+  const COMPARE_FEES = [3, 5, 8, 10, 13.4, 15, 20];
+  const calc = Object.assign({}, CALC_DEFAULTS, JSON.parse(localStorage.getItem(CALC_KEY) || "{}"));
+  const calcs = [...document.querySelectorAll(".calc")];
+
+  function economics(fee) {
+    const s = calc;
+    const profitMonth = s.signs * (fee - s.conn - s.plat) - s.fixed;
+    const deviceMargin = s.signs * (s.devPrice - s.devCost);
+    const share = s.share / 100;
+    const total = share * (deviceMargin + profitMonth * 12 * s.years) - s.setup;
+    return { mrr: s.signs * fee, profitMonth, deviceMargin, share, total };
+  }
+
+  function renderCalc() {
+    const e = economics(calc.fee);
+    const perSign = calc.fee - calc.conn - calc.plat;
+    const ourMonth = e.share * e.profitMonth;
+    const leftAfterDevices = calc.setup - e.share * e.deviceMargin;
+    calcs.forEach(box => {
+      const money = n => new Intl.NumberFormat(box.dataset.locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+      const num = n => new Intl.NumberFormat(box.dataset.locale).format(n);
+      const fee = n => new Intl.NumberFormat(box.dataset.locale, { style: "currency", currency: "EUR", maximumFractionDigits: 2 }).format(n);
+      box.querySelectorAll("[data-k]").forEach(input => { if (document.activeElement !== input) input.value = calc[input.dataset.k]; });
+      box.querySelectorAll("[data-signs]").forEach(b => b.classList.toggle("active", +b.dataset.signs === calc.signs));
+      const out = {
+        mrr: money(e.mrr),
+        arr: money(e.mrr * 12),
+        profitMonth: money(e.profitMonth),
+        ourYear: money(ourMonth * 12),
+        partnerYear: money((1 - e.share) * e.profitMonth * 12),
+        deviceMargin: money(e.deviceMargin),
+        total: money(e.total),
+        breakeven: perSign > 0 ? num(Math.ceil(calc.fixed / perSign)) + " " + box.dataset.signsWord : box.dataset.never,
+        payback: leftAfterDevices <= 0 ? box.dataset.now : (ourMonth > 0 ? num(Math.ceil(leftAfterDevices / ourMonth)) + " " + box.dataset.months : box.dataset.never)
+      };
+      Object.entries(out).forEach(([k, v]) => {
+        const el = box.querySelector('[data-o="' + k + '"]');
+        el.textContent = v;
+        el.classList.toggle("neg", /^-|^−/.test(v.trim()) || v === box.dataset.never);
+      });
+      const fees = [...new Set([...COMPARE_FEES, calc.fee])].sort((a, b) => a - b);
+      box.querySelector('[data-o="table"]').innerHTML = fees.map(f => {
+        const r = economics(f);
+        return '<tr class="' + (f === calc.fee ? "current" : "") + '"><td>' + fee(f) + "</td><td>" + money(r.mrr) + "</td><td>" + money(r.profitMonth) +
+          "</td><td>" + money(r.share * r.profitMonth * 12) + "</td><td>" + money(r.total) + "</td></tr>";
+      }).join("");
+    });
+  }
+
+  function setCalc(k, v) {
+    if (!isFinite(v)) return;
+    calc[k] = v;
+    localStorage.setItem(CALC_KEY, JSON.stringify(calc));
+    renderCalc();
+  }
+
+  calcs.forEach(box => {
+    box.querySelectorAll("[data-k]").forEach(input => input.addEventListener("input", () => setCalc(input.dataset.k, parseFloat(input.value))));
+    box.querySelectorAll("[data-signs]").forEach(b => b.addEventListener("click", () => setCalc("signs", +b.dataset.signs)));
+    box.querySelector("[data-calc-reset]").addEventListener("click", () => {
+      Object.assign(calc, CALC_DEFAULTS);
+      localStorage.removeItem(CALC_KEY);
+      renderCalc();
+    });
+  });
+  renderCalc();
 
   const hash = location.hash.replace("#", "");
   const fromHash = hash === "lt" || hash.startsWith("lt-") ? "lt" : (hash === "en" || hash.startsWith("en-") ? "en" : null);
