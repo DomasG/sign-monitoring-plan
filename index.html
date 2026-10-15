@@ -70,6 +70,9 @@
   .calc .stat b { font-size: 21px; }
   .calc tr.current td { background: #eef5ff; font-weight: 600; }
   .calc .neg { color: var(--bad) !important; }
+  .diagram { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 10px 0 14px; overflow-x: auto; text-align: center; }
+  .diagram .mermaid { visibility: hidden; }
+  .diagram .mermaid[data-processed] { visibility: visible; }
   @media print {
     nav, .toolbar, .lang-switch { display: none; }
     body { background: #fff; }
@@ -105,6 +108,7 @@
     <a href="#en-idea">The idea</a>
     <a href="#en-findings">What we found</a>
     <a href="#en-devices">Device costs</a>
+    <a href="#en-wiring">Wiring diagrams</a>
     <a href="#en-earnings">Earnings calculator</a>
     <a href="#en-tasks">Tasks now</a>
     <a href="#en-decisions">Decisions ahead</a>
@@ -252,6 +256,127 @@
   <p class="note">For the pilot: test the two LTE-M/NB-IoT options, Teltonika TRB256 + Eastron SDM120 (reliable, mains-powered) and Dragino CS01-CB (battery, no cable cutting), with a Lichtwart unit as a benchmark. Shelly is optional, only for sites with Wi-Fi. Expect about €105–175 per sign for the device, excl. VAT. Ask Teltonika directly for volume prices.</p>
 </section>
 
+<section id="en-wiring">
+  <h2>Wiring diagrams <span class="pill p-wait">To bench-test</span></h2>
+  <p class="muted">How the monitoring devices connect to a sign, including signs with several LED drivers (power supplies). These are principle diagrams to be checked in the workshop bench test; on-site connection must be done by an attested electrician.</p>
+
+  <div class="card verdict">
+    <h3>Key idea</h3>
+    <p style="margin:0">Several drivers usually change nothing: <b>one meter</b> on the common 230 V feed, before it splits to the drivers, sees the total power of all of them. When one driver fails, power drops by a step, and the size of the step shows how much of the sign went dark.</p>
+  </div>
+
+  <div class="card">
+    <h3>1. How a typical sign is wired</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Building panel: breaker + 30 mA RCD"] --> B["Timer / twilight switch"]
+    B --> C["Sign 230 V feed"]
+    C --> T1["Driver 1"]
+    C --> T2["Driver 2"]
+    C --> T3["Driver 3"]
+    C --> T4["Driver 4"]
+    T1 --> L1["LED modules 12/24 V"]
+    T2 --> L2["LED modules"]
+    T3 --> L3["LED modules"]
+    T4 --> L4["LED modules"]
+    </pre></div>
+    <p class="note" style="margin:0">All drivers are connected in parallel to the same 230 V line. That line is the measuring point.</p>
+  </div>
+
+  <div class="card">
+    <h3>2. Main option: Teltonika TRB256 + one Eastron SDM120</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Panel: breaker + 30 mA RCD"] --> F["2 A fuse for electronics"]
+    A --> M["Eastron SDM120: measures total sign power"]
+    F --> P["DIN power supply 230 V → 12/24 V DC"]
+    P --> R["Teltonika TRB256: LTE-M/NB-IoT"]
+    M --> B["Timer / twilight switch"]
+    B --> T["Drivers 1…N"]
+    B -. "auxiliary relay: is the timer on?" .-> DI["TRB256 digital input"]
+    M <-->|"RS485 Modbus: A/B twisted pair"| R
+    R -. "mobile network" .-> S["Monitoring platform"]
+    </pre></div>
+    <ul>
+      <li><b>The meter sits before the timer</b>, on permanent power. It is always on: it shows 0 W when the timer is off but still answers. Behind the timer it would switch off at night, and we couldn't tell "timer off" from "breaker tripped".</li>
+      <li><b>The Teltonika has its own supply</b> through a 2 A fuse and a small DIN power supply, so it works when the sign is off.</li>
+      <li><b>An auxiliary relay</b> on the timer output tells the Teltonika input whether the timer has the sign switched on. This is the most reliable way to tell "off by schedule" from "failed".</li>
+      <li>Alternative: replace the timer with the Teltonika output and a contactor. We then control the schedule from the platform, as Lichtwart does, which later allows selling energy saving too.</li>
+    </ul>
+    <table style="margin-top:10px">
+      <tr><th>What the platform sees</th><th>What it means</th></tr>
+      <tr><td>Timer on, normal power</td><td>All fine</td></tr>
+      <tr><td>Timer on, power dropped by a step</td><td>One driver or LED group failed (partial failure)</td></tr>
+      <tr><td>Timer on, 0 W</td><td>Whole sign dark: blown fuse, broken wire, etc.</td></tr>
+      <tr><td>Timer off, 0 W</td><td>Off by schedule, all fine</td></tr>
+      <tr><td>Device stopped sending data</td><td>Power cut at the site, RCD tripped, or connection lost</td></tr>
+    </table>
+    <p class="note" style="margin-bottom:0">Example: 4 drivers × 60 W = 240 W. If one fails, power drops to ~180 W (−25%), which the meter sees clearly. The platform learns each sign's normal power and alerts on a drop of more than, say, 10–15%.</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Signs with many drivers (6–12 or more)</h3>
+    <p style="margin-top:0">Rule of thumb: one meter reliably catches a driver failure if that driver is at least ~10–15% of total power. With many drivers, or very different sizes, a small driver's failure can get lost in normal fluctuation. Then split the drivers into groups, each with its own meter.</p>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Permanent 230 V"] --> M1["SDM120 #1: left side"]
+    A --> M2["SDM120 #2: right side"]
+    A --> M3["SDM120 #3: logo"]
+    M1 --> B1["Timer"] --> G1["Drivers 1–4"]
+    M2 --> B2["Timer"] --> G2["Drivers 5–8"]
+    M3 --> B3["Timer"] --> G3["Drivers 9–12"]
+    R["Teltonika TRB256"] <-->|"one RS485 line"| M1
+    M1 <--> M2
+    M2 <--> M3
+    </pre></div>
+    <ul>
+      <li><b>Meters are chained on one RS485 line</b>, each with its own Modbus address (1, 2, 3…) and a 120 Ω resistor at the end of the line. One Teltonika reads them all.</li>
+      <li><b>Keep up to ~6–8 drivers per group.</b> Group by part of the sign (sides, letters, logo), so the alert also says where the failure is.</li>
+      <li>One shared timer can sit before the meters. The meters are then behind the timer, so take the timer state from the auxiliary relay.</li>
+      <li>Each extra meter costs ~€33–40 and takes 1 DIN-rail module.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>4. Without cutting cables: Dragino CS01-CB with clamps</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    C["230 V feed"] --> T1["Driver 1"] & T2["Driver 2"] & T3["Driver 3"] & T4["Driver 4"]
+    K1(("Clamp 1")) -.-> T1
+    K2(("Clamp 2")) -.-> T2
+    K3(("Clamp 3")) -.-> T3
+    K4(("Clamp 4")) -.-> T4
+    K1 & K2 & K3 & K4 --> D["Dragino CS01-CB: 4 channels, battery, LTE-M/NB-IoT"]
+    </pre></div>
+    <ul>
+      <li>The Dragino has <b>4 channels</b>: each clamp goes on one driver's 230 V wire or on a group's wire, so you see exactly which driver failed.</li>
+      <li>Clamps measure AC only, so they go on the 230 V side, not on the 12/24 V LED wires.</li>
+      <li>Biggest risk: a 60 W driver draws only ~0.26 A. Whether the clamps reliably sense such a small current must be checked in the bench test ("accuracy at 20, 50, 100 and 300 W").</li>
+      <li>The same principle applies to the Hardwario CHESTER Current (up to 4 clamps).</li>
+    </ul>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="margin:0"><h3>What goes in one box</h3><ul>
+      <li>A small IP65 DIN enclosure (~4–8 modules wide)</li>
+      <li>2 A breaker for the electronics</li>
+      <li>Eastron SDM120, one or several</li>
+      <li>DIN power supply 12/24 V DC (e.g. Mean Well HDR-15)</li>
+      <li>Teltonika TRB256 with antenna</li>
+      <li>Optional auxiliary relay for the timer state</li>
+      <li>Extra on top of the devices: about <b>€30–50</b> (box, power supply, fuse, relay)</li>
+    </ul></div>
+    <div class="card" style="margin:0"><h3>Which option when</h3>
+      <table>
+        <tr><th>Situation</th><th>Use</th></tr>
+        <tr><td>Up to ~6–8 similar drivers</td><td>1 meter</td></tr>
+        <tr><td>More drivers, or need to know which part failed</td><td>Several meters on one RS485 line</td></tr>
+        <tr><td>Cables can't be cut (signs already mounted)</td><td>Dragino with clamps, if the bench test shows enough sensitivity</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
 <section id="en-earnings">
   <h2>Earnings calculator <span class="pill p-wait">Estimate</span></h2>
   <p class="muted">Change the numbers to see what different subscription fees could earn. Defaults come from the research above, all excl. VAT. This is a planning tool, not a forecast: the pilot will tell us what clients actually pay.</p>
@@ -389,6 +514,7 @@
     <a href="#lt-idea">Idėja</a>
     <a href="#lt-findings">Tyrimo išvados</a>
     <a href="#lt-devices">Įrangos kainos</a>
+    <a href="#lt-wiring">Sujungimo schemos</a>
     <a href="#lt-earnings">Pajamų skaičiuoklė</a>
     <a href="#lt-tasks">Artimiausi darbai</a>
     <a href="#lt-decisions">Būtini sprendimai</a>
@@ -534,6 +660,127 @@
     </ul></div>
   </div>
   <p class="note">Bandomajam projektui siūloma išmėginti du LTE-M/NB-IoT variantus: „Teltonika TRB256“ su „Eastron SDM120“ (patikimas, jungiamas į tinklą) ir „Dragino CS01-CB“ (su baterija, nereikia kirpti laidų), o palyginimui paimti „Lichtwart“ įrenginį. „Shelly“ – tik ten, kur yra „Wi-Fi“. Vienos iškabos įrangai reikėtų numatyti 105–175 € be PVM. Dėl didmeninių kainų verta kreiptis tiesiai į „Teltoniką“.</p>
+</section>
+
+<section id="lt-wiring">
+  <h2>Sujungimo schemos <span class="pill p-wait">Reikia išbandyti</span></h2>
+  <p class="muted">Kaip stebėsenos įrenginiai jungiami prie iškabos, taip pat ir tada, kai iškaba turi kelis trafus (LED maitinimo šaltinius). Tai principinės schemos, kurias dar reikia patikrinti bandant ceche. Objekte jungti gali tik atestuotas elektrikas.</p>
+
+  <div class="card verdict">
+    <h3>Esmė</h3>
+    <p style="margin:0">Keli trafai situacijos dažniausiai nekeičia: užtenka <b>vieno skaitiklio</b> ant bendro 230 V maitinimo laido, prieš tai, kai maitinimas išsišakoja į trafus. Skaitiklis mato visų trafų bendrą galią. Sugedus vienam trafui, galia krenta laipteliu, ir iš to dydžio matyti, kiek iškabos užgeso.</p>
+  </div>
+
+  <div class="card">
+    <h3>1. Kaip įprastai sujungta iškaba</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Pastato skydas: automatas + 30 mA nuotėkio relė"] --> B["Laikmatis / prieblandos relė"]
+    B --> C["230 V iškabos įvadas"]
+    C --> T1["Trafas 1"]
+    C --> T2["Trafas 2"]
+    C --> T3["Trafas 3"]
+    C --> T4["Trafas 4"]
+    T1 --> L1["LED moduliai, 12/24 V"]
+    T2 --> L2["LED moduliai"]
+    T3 --> L3["LED moduliai"]
+    T4 --> L4["LED moduliai"]
+    </pre></div>
+    <p class="note" style="margin:0">Visi trafai lygiagrečiai jungiami prie to paties 230 V laido. Būtent šis laidas ir yra matavimo taškas.</p>
+  </div>
+
+  <div class="card">
+    <h3>2. Pagrindinė schema: Teltonika TRB256 su vienu Eastron SDM120</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Skydas: automatas + 30 mA relė"] --> F["Saugiklis 2 A elektronikai"]
+    A --> M["Eastron SDM120: matuoja visą iškabos galią"]
+    F --> P["DIN maitinimo šaltinis 230 V → 12/24 V DC"]
+    P --> R["Teltonika TRB256: LTE-M/NB-IoT"]
+    M --> B["Laikmatis / prieblandos relė"]
+    B --> T["Trafai 1…N"]
+    B -. "pagalbinė relė: ar laikmatis įjungęs" .-> DI["TRB256 skaitmeninis įėjimas"]
+    M <-->|"RS485 Modbus: A/B laidų pora"| R
+    R -. "mobilusis ryšys" .-> S["Stebėsenos platforma"]
+    </pre></div>
+    <ul>
+      <li><b>Skaitiklis statomas prieš laikmatį</b>, ant nuolatinio maitinimo. Tada jis veikia visą laiką: kai laikmatis išjungtas, rodo 0 W, bet į užklausas vis tiek atsako. Jei skaitiklį pastatytume už laikmačio, naktį jis išsijungtų, ir nebūtų įmanoma atskirti, ar iškabą išjungė laikmatis, ar suveikė automatas.</li>
+      <li><b>Teltonika maitinama atskirai</b>, per 2 A saugiklį ir mažą DIN maitinimo šaltinį. Ji turi veikti ir tada, kai iškaba išjungta.</li>
+      <li><b>Pagalbinė relė</b> jungiama prie laikmačio išėjimo ir duoda signalą į Teltonikos įėjimą, ar laikmatis tuo metu įjungęs iškabą. Tai patikimiausias būdas atskirti „išjungta pagal grafiką“ nuo „sugedo“.</li>
+      <li>Alternatyva: laikmatį galima visai pakeisti Teltonikos išėjimu ir kontaktoriumi. Tada grafiką valdome patys iš platformos, kaip daro Lichtwart, o vėliau tai leistų siūlyti ir elektros taupymą.</li>
+    </ul>
+    <table style="margin-top:10px">
+      <tr><th>Ką mato platforma</th><th>Ką tai reiškia</th></tr>
+      <tr><td>Laikmatis įjungęs, galia normali</td><td>Viskas gerai</td></tr>
+      <tr><td>Laikmatis įjungęs, galia sumažėjo laipteliu</td><td>Sugedo vienas trafas ar LED grupė (dalinis gedimas)</td></tr>
+      <tr><td>Laikmatis įjungęs, galia 0 W</td><td>Užgeso visa iškaba: perdegė saugiklis, nutrūko laidas ar panašiai</td></tr>
+      <tr><td>Laikmatis išjungęs, galia 0 W</td><td>Išjungta pagal grafiką, viskas tvarkoje</td></tr>
+      <tr><td>Įrenginys nustojo siųsti duomenis</td><td>Dingo elektra visame objekte, suveikė relė arba nutrūko ryšys</td></tr>
+    </table>
+    <p class="note" style="margin-bottom:0">Pavyzdys: iškaba turi 4 trafus po 60 W, iš viso 240 W. Sugedus vienam trafui, galia nukrenta iki ~180 W, t. y. 25 %. Tokį pokytį skaitiklis pastebi aiškiai. Platforma kiekvienai iškabai įsimena jos normalią galią ir siunčia pranešimą, jei galia nukrenta daugiau nei, pvz., 10–15 %.</p>
+  </div>
+
+  <div class="card">
+    <h3>3. Kai trafų daug (6–12 ir daugiau)</h3>
+    <p style="margin-top:0">Viena taisyklė: vienas skaitiklis patikimai pastebi trafo gedimą, jei tas trafas sudaro bent ~10–15 % visos galios. Kai trafų daug arba jie labai skirtingo dydžio, vieno nedidelio trafo gedimas gali pasimesti tarp įprastų galios svyravimų. Tada trafus reikia suskirstyti į grupes ir kiekvienai grupei skirti savo skaitiklį.</p>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    A["Nuolatinis 230 V"] --> M1["SDM120 #1: kairė iškabos pusė"]
+    A --> M2["SDM120 #2: dešinė pusė"]
+    A --> M3["SDM120 #3: logotipas"]
+    M1 --> B1["Laikmatis"] --> G1["Trafai 1–4"]
+    M2 --> B2["Laikmatis"] --> G2["Trafai 5–8"]
+    M3 --> B3["Laikmatis"] --> G3["Trafai 9–12"]
+    R["Teltonika TRB256"] <-->|"viena RS485 linija"| M1
+    M1 <--> M2
+    M2 <--> M3
+    </pre></div>
+    <ul>
+      <li><b>Skaitikliai jungiami į vieną RS485 liniją</b>, vienas po kito. Kiekvienam nustatomas savo Modbus adresas (1, 2, 3…), o linijos gale dedamas 120 Ω rezistorius. Viena Teltonika nuskaito visus.</li>
+      <li><b>Vienoje grupėje patartina turėti iki ~6–8 trafų.</b> Logiškiausia grupuoti pagal iškabos dalis: atskiras puses, raides ar logotipą. Tada pranešimas iškart pasako, kurioje vietoje gedimas.</li>
+      <li>Laikmatis gali būti ir vienas bendras, prijungtas prieš skaitiklius. Tada skaitikliai būtų už laikmačio, todėl laikmačio būseną reikia imti iš pagalbinės relės.</li>
+      <li>Kiekvienas papildomas skaitiklis kainuoja ~33–40 € ir užima 1 vietą ant DIN bėgelio.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>4. Variantas nekerpant laidų: Dragino CS01-CB su replėmis</h3>
+    <div class="diagram"><pre class="mermaid">
+flowchart TB
+    C["230 V įvadas"] --> T1["Trafas 1"] & T2["Trafas 2"] & T3["Trafas 3"] & T4["Trafas 4"]
+    K1(("Replė 1")) -.-> T1
+    K2(("Replė 2")) -.-> T2
+    K3(("Replė 3")) -.-> T3
+    K4(("Replė 4")) -.-> T4
+    K1 & K2 & K3 & K4 --> D["Dragino CS01-CB: 4 kanalai, baterija, LTE-M/NB-IoT"]
+    </pre></div>
+    <ul>
+      <li>Dragino turi <b>4 kanalus</b>: kiekviena replė užsegama ant vieno trafo 230 V laido arba ant trafų grupės laido. Tada iškart matyti, kuris trafas sugedo.</li>
+      <li>Replės matuoja tik kintamąją srovę, todėl dedamos ant 230 V pusės, ne ant 12/24 V LED laidų.</li>
+      <li>Didžiausia rizika: 60 W trafas naudoja vos ~0,26 A. Ar replės patikimai jaučia tokią mažą srovę, reikia patikrinti bandant ceche („tikslumas esant 20, 50, 100 ir 300 W“).</li>
+      <li>Tas pats principas tinka ir Hardwario CHESTER Current, kuris turi iki 4 replių.</li>
+    </ul>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="margin:0"><h3>Kas telpa į vieną dėžutę</h3><ul>
+      <li>Maža IP65 DIN dėžutė (~4–8 modulių pločio)</li>
+      <li>2 A automatinis saugiklis elektronikai</li>
+      <li>Eastron SDM120, vienas arba keli</li>
+      <li>DIN maitinimo šaltinis 12/24 V DC (pvz., Mean Well HDR-15)</li>
+      <li>Teltonika TRB256 su antena</li>
+      <li>Pasirinktinai pagalbinė relė laikmačio būsenai</li>
+      <li>Papildomai, be pačių įrenginių: apie <b>30–50 €</b> (dėžutė, maitinimo šaltinis, saugiklis, relė)</li>
+    </ul></div>
+    <div class="card" style="margin:0"><h3>Kurį variantą rinktis</h3>
+      <table>
+        <tr><th>Situacija</th><th>Ką naudoti</th></tr>
+        <tr><td>Iki ~6–8 panašaus dydžio trafų</td><td>1 skaitiklis</td></tr>
+        <tr><td>Daugiau trafų arba norima žinoti, kuri iškabos dalis sugedo</td><td>Keli skaitikliai vienoje RS485 linijoje</td></tr>
+        <tr><td>Negalima kirpti laidų (jau sumontuotos iškabos)</td><td>Dragino su replėmis, jei bandymai ceche parodys pakankamą jautrumą</td></tr>
+      </table>
+    </div>
+  </div>
 </section>
 
 <section id="lt-earnings">
@@ -783,6 +1030,16 @@
   const hash = location.hash.replace("#", "");
   const fromHash = hash === "lt" || hash.startsWith("lt-") ? "lt" : (hash === "en" || hash.startsWith("en-") ? "en" : null);
   setLang(fromHash || localStorage.getItem(LANG_KEY) || "en");
+</script>
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: "neutral", flowchart: { useMaxWidth: true } });
+  async function renderVisibleDiagrams() {
+    const nodes = [...document.querySelectorAll(".lang-" + document.body.dataset.lang + " .mermaid:not([data-processed])")];
+    if (nodes.length) await mermaid.run({ nodes });
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(b => b.addEventListener("click", renderVisibleDiagrams));
+  renderVisibleDiagrams();
 </script>
 </body>
 </html>
